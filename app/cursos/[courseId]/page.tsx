@@ -25,7 +25,7 @@ export default async function CoursePage({ params }: PageProps) {
   if (!modules || modules.length === 0) redirect('/dashboard')
 
   // Get ALL active lessons for these modules
-  const moduleIds = modules.map(m => m.id)
+  const moduleIds = modules.map((m: any) => m.id)
   const { data: lessons } = await admin
     .from('lessons')
     .select('id, module_id, order_index')
@@ -35,8 +35,8 @@ export default async function CoursePage({ params }: PageProps) {
   if (!lessons || lessons.length === 0) redirect('/dashboard')
 
   // Sort lessons to find the absolutely first one (lowest module order, then lowest lesson order)
-  const moduleOrderMap = Object.fromEntries(modules.map(m => [m.id, m.order_index]))
-  const sortedLessons = lessons.sort((a, b) => {
+  const moduleOrderMap = Object.fromEntries(modules.map((m: any) => [m.id, m.order_index]))
+  const sortedLessons = lessons.sort((a: any, b: any) => {
     if (moduleOrderMap[a.module_id] !== moduleOrderMap[b.module_id]) {
       return moduleOrderMap[a.module_id] - moduleOrderMap[b.module_id]
     }

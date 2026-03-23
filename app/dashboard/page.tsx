@@ -49,7 +49,7 @@ export default async function DashboardPage() {
       .eq('is_active', true)
       .order('order_index', { ascending: true })
 
-    const moduleIds = (moduleData ?? []).map((m) => m.id)
+    const moduleIds = (moduleData ?? []).map((m: any) => m.id)
     if (moduleIds.length > 0) {
       const { data: lessonData } = await supabase
         .from('lessons')

@@ -44,7 +44,7 @@ export function CourseItem({ course, children }: { course: any, children: React.
     <details className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden group mb-4" open>
       <summary className="px-6 py-4 flex items-center justify-between cursor-pointer hover:bg-gray-800/40 transition-colors list-none">
         <div className="flex items-center gap-3">
-          <svg className="w-4 h-4 text-gray-500 group-open:rotate-90 transition-transform flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-4 h-4 text-gray-500 group-open:rotate-90 transition-transform shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
           <div>
@@ -111,7 +111,7 @@ export function ModuleItem({ module, children }: { module: any, children: React.
     <details className="bg-gray-800/40 rounded-xl overflow-hidden group/mod mb-3" open>
       <summary className="px-4 py-3 flex items-center justify-between cursor-pointer hover:bg-gray-700/40 transition-colors list-none">
         <div className="flex items-center gap-2 min-w-0">
-          <svg className="w-3.5 h-3.5 text-gray-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-3.5 h-3.5 text-gray-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
           <span className="text-gray-200 text-sm font-medium truncate">{module.title}</span>
@@ -176,7 +176,7 @@ export function LessonItem({ lesson }: { lesson: any }) {
   return (
     <li className="py-2.5 flex items-center justify-between group/lesson">
       <div className="flex items-center gap-2 min-w-0 pr-4">
-        <svg className="w-3.5 h-3.5 text-indigo-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="w-3.5 h-3.5 text-indigo-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
             d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}

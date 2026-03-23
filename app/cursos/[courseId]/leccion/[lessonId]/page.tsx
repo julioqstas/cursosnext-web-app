@@ -46,7 +46,7 @@ export default async function LessonPage({ params }: PageProps) {
     .eq('is_active', true)
     .order('order_index', { ascending: true })
 
-  const moduleIds = (modules ?? []).map((m) => m.id)
+  const moduleIds = (modules ?? []).map((m: any) => m.id)
   const { data: lessons } = await admin
     .from('lessons')
     .select('*')
@@ -70,8 +70,8 @@ export default async function LessonPage({ params }: PageProps) {
   const completedIds = new Set((progressData ?? []).map((p) => p.lesson_id))
 
   // Build LessonWithModule list
-  const moduleOrderMap = Object.fromEntries((modules ?? []).map((m) => [m.id, m.order_index]))
-  const allLessons: LessonWithModule[] = (lessons ?? []).map((l) => ({
+  const moduleOrderMap = Object.fromEntries((modules ?? []).map((m: any) => [m.id, m.order_index]))
+  const allLessons: LessonWithModule[] = (lessons ?? []).map((l: any) => ({
     ...l,
     moduleOrderIndex: moduleOrderMap[l.module_id] ?? 0,
   }))
@@ -89,12 +89,12 @@ export default async function LessonPage({ params }: PageProps) {
   const isCompleted = completedIds.has(lessonId)
 
   // Group lessons by module for accordion
-  const moduleGroups = (modules ?? []).map((mod) => ({
+  const groupedModules = (modules ?? []).map((mod: any) => ({
     ...mod,
     lessons: allLessons
       .filter((l) => l.module_id === mod.id)
       .sort((a, b) => a.order_index - b.order_index)
-      .map((l) => ({
+      .map((l: any) => ({
         ...l,
         unlocked: isLessonUnlocked(l, enrollment, overrides ?? [], allLessons, completedIds),
         completed: completedIds.has(l.id),
@@ -137,7 +137,7 @@ export default async function LessonPage({ params }: PageProps) {
           {/* Lesson Metadata & Content */}
           <div className="mb-10 lg:pr-8">
             <div className="flex items-center gap-2 text-xs font-bold text-indigo-400 tracking-wider mb-3 uppercase">
-              <span>MÓDULO {modules.findIndex(m => m.id === currentLesson.module_id) + 1}</span>
+              <span>MÓDULO {groupedModules.findIndex((m: any) => m.id === currentLesson.module_id) + 1}</span>
               <span className="text-gray-600">•</span>
               <span className="text-gray-400 font-medium tracking-normal">Lección {currentLesson.order_index} de {allLessons.length}</span>
             </div>
@@ -196,7 +196,7 @@ export default async function LessonPage({ params }: PageProps) {
               </svg>
             </div>
             <div className="flex-1 overflow-y-auto custom-scrollbar">
-              <LessonAccordion courseId={courseId} modules={moduleGroups} />
+              <LessonAccordion courseId={courseId} modules={groupedModules} />
             </div>
           </div>
 

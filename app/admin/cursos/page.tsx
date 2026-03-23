@@ -21,7 +21,7 @@ export default async function AdminCursosPage() {
 
   // For each course, load modules and their lessons
   const courseDetails = await Promise.all(
-    (courses ?? []).map(async (course) => {
+    (courses ?? []).map(async (course: any) => {
       const { data: modules } = await admin
         .from('modules')
         .select('*, lessons(*)')
@@ -31,7 +31,7 @@ export default async function AdminCursosPage() {
 
       return {
         ...course,
-        modules: (modules ?? []).map((m) => ({
+        modules: (modules ?? []).map((m: any) => ({
           ...m,
           lessons: (m.lessons ?? []).filter((l: any) => l.is_active).sort((a: any, b: any) => a.order_index - b.order_index),
         })),
@@ -78,7 +78,7 @@ export default async function AdminCursosPage() {
                 No hay cursos. Crea uno.
               </div>
             )}
-            {courseDetails.map((course) => (
+            {courseDetails.map((course: any) => (
               <CourseItem key={course.id} course={course}>
                 {course.modules.map((mod: any) => (
                   <ModuleItem key={mod.id} module={mod}>

@@ -78,7 +78,7 @@ export default async function AdminAlumnoDetailPage({ params }: PageProps) {
 
     const modules = (rawModules ?? []) as { id: string; title: string; order_index: number; module_id?: string }[]
 
-    const moduleIds = modules.map((m) => m.id)
+    const moduleIds = modules.map((m: any) => m.id)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data: rawLessons } = moduleIds.length > 0
       ? await admin.from('lessons').select('*').in('module_id', moduleIds).eq('is_active', true).order('order_index')
@@ -89,8 +89,8 @@ export default async function AdminAlumnoDetailPage({ params }: PageProps) {
       .select('*')
       .eq('enrollment_id', enrollment.id)
 
-    const moduleOrderMap = Object.fromEntries(modules.map((m) => [m.id, m.order_index]))
-    const allLessons: LessonWithModule[] = ((rawLessons ?? []) as import('@/lib/database.types').Lesson[]).map((l) => ({
+    const moduleOrderMap = Object.fromEntries(modules.map((m: any) => [m.id, m.order_index]))
+    const allLessons: LessonWithModule[] = ((rawLessons ?? []) as import('@/lib/database.types').Lesson[]).map((l: any) => ({
       ...l,
       moduleOrderIndex: moduleOrderMap[l.module_id] ?? 0,
     }))

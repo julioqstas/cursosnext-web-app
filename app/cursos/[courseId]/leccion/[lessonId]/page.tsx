@@ -148,9 +148,12 @@ export default async function LessonPage({ params }: PageProps) {
             <h1 className="text-4xl md:text-5xl font-extrabold text-on-surface mb-8 tracking-tight leading-tight">{currentLesson.title}</h1>
 
             {/* Formatted HTML Text */}
-            <div className="text-on-surface-variant leading-relaxed text-lg prose prose-invert prose-p:text-on-surface-variant prose-headings:text-on-surface prose-a:text-primary max-w-none">
+            <div className="w-full text-on-surface-variant leading-relaxed text-lg prose prose-invert prose-p:text-on-surface-variant prose-headings:text-on-surface prose-a:text-primary max-w-none [&_p]:mb-5 **:break-normal!">
               {currentLesson.content_md ? (
-                <div dangerouslySetInnerHTML={{ __html: currentLesson.content_md }} />
+                <div 
+                  className="w-full whitespace-pre-wrap [&_p]:whitespace-normal"
+                  dangerouslySetInnerHTML={{ __html: currentLesson.content_md.replace(/<p>(\s|&nbsp;|\u00A0)*<\/p>/g, '<p><br></p>').replace(/&nbsp;/g, ' ').replace(/\u00A0/g, ' ') }} 
+                />
               ) : (
                 <p className="italic text-on-surface-variant/50 font-light">Sin material complementario de lectura para esta lección.</p>
               )}
@@ -158,17 +161,17 @@ export default async function LessonPage({ params }: PageProps) {
             
             {/* Instructor / Key Takeaways block */}
             {(course.instructor_name || course.instructor_bio) && (
-              <div className="flex bg-surface-container-low rounded-3xl p-6 mt-12 items-center gap-5 shadow-2xl shadow-black/20 ring-1 ring-white/5">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start bg-surface-container-low rounded-3xl p-6 sm:p-8 mt-12 gap-5 shadow-2xl shadow-black/20 ring-1 ring-white/5">
                 {course.instructor_avatar_url ? (
-                  <img src={course.instructor_avatar_url} alt={course.instructor_name || 'Docente'} className="w-16 h-16 rounded-full object-cover ring-2 ring-primary/20 bg-surface" />
+                  <img src={course.instructor_avatar_url} alt={course.instructor_name || 'Docente'} className="w-20 h-20 rounded-full shrink-0 object-cover ring-2 ring-primary/20 bg-surface shadow-md" />
                 ) : (
-                  <div className="w-16 h-16 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-2xl shadow-[inset_0_0_15px_rgba(249,115,22,0.2)]">
+                  <div className="w-20 h-20 rounded-full shrink-0 bg-primary/20 text-primary flex items-center justify-center font-bold text-3xl shadow-[inset_0_0_15px_rgba(249,115,22,0.2)]">
                     {(course.instructor_name || course.title).charAt(0).toUpperCase()}
                   </div>
                 )}
-                <div>
-                  <p className="text-on-surface font-extrabold text-base tracking-wide">{course.instructor_name || 'Instructor del Curso'}</p>
-                  <p className="text-primary text-xs font-bold uppercase tracking-widest mt-1 mb-1">{course.instructor_bio || 'ISIMOVA Academy'}</p>
+                <div className="flex-1 min-w-0 text-center sm:text-left">
+                  <p className="text-on-surface font-extrabold text-lg sm:text-xl tracking-wide">{course.instructor_name || 'Instructor del Curso'}</p>
+                  <p className="text-on-surface-variant text-sm sm:text-base font-medium leading-relaxed mt-2">{course.instructor_bio || 'ISIMOVA Academy'}</p>
                 </div>
               </div>
             )}

@@ -95,6 +95,13 @@ export default async function AdminAlumnoDetailPage({ params }: PageProps) {
       moduleOrderIndex: moduleOrderMap[l.module_id] ?? 0,
     }))
 
+    allLessons.sort((a, b) => {
+      if (a.moduleOrderIndex !== b.moduleOrderIndex) {
+        return a.moduleOrderIndex - b.moduleOrderIndex
+      }
+      return a.order_index - b.order_index
+    })
+
     enrollmentDetails.push({
       enrollment,
       allLessons,

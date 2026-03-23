@@ -67,9 +67,19 @@ export async function upsertLessonOverrideAction(
   const manual_unlock_date = formData.get('manual_unlock_date') as string
   const userId = formData.get('user_id') as string
 
-  if (!manual_unlock_date) return { error: 'Fecha requerida.' }
-
   const admin = createAdminClient()
+
+  if (!manual_unlock_date) {
+    const { error } = await (admin.from('lesson_overrides') as AnyTable)
+      .delete()
+      .eq('enrollment_id', enrollment_id)
+      .eq('lesson_id', lesson_id)
+    
+    if (error) return { error: error.message }
+    revalidatePath(`/admin/alumnos/${userId}`)
+    return { success: 'Restricción eliminada.' }
+  }
+
   const { error } = await (admin.from('lesson_overrides') as AnyTable)
     .upsert(
       { enrollment_id, lesson_id, manual_unlock_date },

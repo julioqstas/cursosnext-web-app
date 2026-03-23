@@ -38,7 +38,6 @@ export default function LessonOverrideForm({ enrollmentId, lessonId, userId, cur
           type="date"
           name="manual_unlock_date"
           defaultValue={currentOverride ? new Date(currentOverride.manual_unlock_date).toISOString().split('T')[0] : ''}
-          required
           className="w-full bg-surface-container-low text-on-surface text-xs rounded-lg px-3 py-2 ring-1 ring-inset ring-white/10 outline-none focus:ring-primary shadow-inner transition-all"
         />
       </div>

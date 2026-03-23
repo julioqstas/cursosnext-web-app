@@ -14,13 +14,25 @@ export async function upsertCourseAction(
   const title = (formData.get('title') as string)?.trim()
   const description = formData.get('description') as string
   const image_url = formData.get('image_url') as string
+  const instructor_name = formData.get('instructor_name') as string
+  const instructor_bio = formData.get('instructor_bio') as string
+  const instructor_avatar_url = formData.get('instructor_avatar_url') as string
   const is_published = formData.get('is_published') === 'true'
 
   if (!title) return { error: 'Título requerido.' }
 
   const admin = createAdminClient()
   const { error } = await (admin.from('courses') as AnyTable).upsert(
-    { ...(id ? { id } : {}), title, description, image_url, is_published },
+    { 
+      ...(id ? { id } : {}), 
+      title, 
+      description, 
+      image_url, 
+      is_published,
+      instructor_name,
+      instructor_bio,
+      instructor_avatar_url
+    },
     { onConflict: 'id' }
   )
 

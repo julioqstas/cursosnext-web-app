@@ -27,6 +27,26 @@ export default function CourseForm({ initialData, onCancel }: { initialData?: an
           className="w-full bg-gray-800 border border-gray-700 text-white rounded-xl px-3 py-2.5 text-sm
                      placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition" />
       </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label htmlFor="cf-instructor-name" className="block text-xs font-medium text-gray-400 mb-1">Nombre del docente</label>
+          <input id="cf-instructor-name" name="instructor_name" type="text" placeholder="Ej. Dra. Ana Pérez" defaultValue={initialData?.instructor_name}
+            className="w-full bg-gray-800 border border-gray-700 text-white rounded-xl px-3 py-2.5 text-sm
+                       placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition" />
+        </div>
+        <div>
+          <label htmlFor="cf-instructor-avatar" className="block text-xs font-medium text-gray-400 mb-1">URL de la imagen del docente</label>
+          <input id="cf-instructor-avatar" name="instructor_avatar_url" type="url" placeholder="https://..." defaultValue={initialData?.instructor_avatar_url}
+            className="w-full bg-gray-800 border border-gray-700 text-white rounded-xl px-3 py-2.5 text-sm
+                       placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition" />
+        </div>
+      </div>
+      <div>
+        <label htmlFor="cf-instructor-bio" className="block text-xs font-medium text-gray-400 mb-1">Texto de presentación</label>
+        <textarea id="cf-instructor-bio" name="instructor_bio" rows={2} placeholder="Especialidad y reseña..." defaultValue={initialData?.instructor_bio}
+          className="w-full bg-gray-800 border border-gray-700 text-white rounded-xl px-3 py-2.5 text-sm
+                     placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition resize-none" />
+      </div>
       <div className="flex items-center gap-2">
         <input id="cf-published" name="is_published" type="checkbox" value="true" defaultChecked={initialData?.is_published}
           className="w-4 h-4 rounded accent-indigo-500" />

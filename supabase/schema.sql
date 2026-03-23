@@ -49,6 +49,9 @@ create table if not exists public.courses (
   image_url    text,
   is_published boolean not null default false,
   is_active    boolean not null default true,
+  instructor_name text,
+  instructor_bio text,
+  instructor_avatar_url text,
   created_at   timestamptz not null default now()
 );
 
@@ -236,3 +239,15 @@ create policy "Admins can view all progress"
       where p.id = auth.uid() and p.role = 'admin'
     )
   );
+
+-- ============================================================
+-- MANUAL MIGRATION COMMAND FOR EXISTING CLOUD SUPABASE
+-- ============================================================
+-- Si ya implementaste tu base de datos y no quieres resetearla (lo que borra datos), 
+-- debes ejecutar esto en el SQL Editor de tu Dashboard de Supabase:
+-- 
+-- ALTER TABLE public.courses
+-- ADD COLUMN instructor_name text,
+-- ADD COLUMN instructor_bio text,
+-- ADD COLUMN instructor_avatar_url text;
+-- ============================================================

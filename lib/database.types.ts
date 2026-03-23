@@ -43,6 +43,9 @@ export interface Database {
           image_url: string | null
           is_published: boolean
           is_active: boolean
+          instructor_name: string | null
+          instructor_bio: string | null
+          instructor_avatar_url: string | null
           created_at: string
         }
         Insert: {
@@ -52,6 +55,9 @@ export interface Database {
           image_url?: string | null
           is_published?: boolean
           is_active?: boolean
+          instructor_name?: string | null
+          instructor_bio?: string | null
+          instructor_avatar_url?: string | null
           created_at?: string
         }
         Update: {
@@ -61,6 +67,9 @@ export interface Database {
           image_url?: string | null
           is_published?: boolean
           is_active?: boolean
+          instructor_name?: string | null
+          instructor_bio?: string | null
+          instructor_avatar_url?: string | null
           created_at?: string
         }
       }

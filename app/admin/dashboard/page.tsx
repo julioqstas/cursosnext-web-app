@@ -11,11 +11,13 @@ export default async function AdminDashboardPage() {
   // Metrics
   const admin = createAdminClient()
   const [
+    { data: adminProfile },
     { count: totalStudents },
     { count: activeCourses },
     { count: activeEnrollments },
     { count: pausedEnrollments },
   ] = await Promise.all([
+    admin.from('profiles').select('full_name').eq('id', user.id).single(),
     admin.from('profiles').select('*', { count: 'exact', head: true }).eq('role', 'student').eq('is_active', true),
     admin.from('courses').select('*', { count: 'exact', head: true }).eq('is_active', true).eq('is_published', true),
     admin.from('enrollments').select('*', { count: 'exact', head: true }).eq('status', 'active'),
@@ -59,7 +61,9 @@ export default async function AdminDashboardPage() {
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-12">
-        <h1 className="text-4xl font-extrabold text-on-surface mb-10 tracking-tight">Panel de Control</h1>
+        <h1 className="text-4xl font-extrabold text-on-surface mb-10 tracking-tight">
+          Hola, <span className="text-primary">{adminProfile?.full_name ? adminProfile.full_name.split(' ')[0] : 'Admin'}</span>
+        </h1>
 
         {/* Metrics */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-12">

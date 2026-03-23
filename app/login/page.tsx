@@ -10,28 +10,28 @@ export default function LoginPage() {
     <div className="min-h-dvh bg-surface text-on-surface font-sans selection:bg-primary/30 antialiased overflow-hidden relative">
       {/* Auth Shell Background */}
       <div className="fixed inset-0 bg-[linear-gradient(135deg,#250a00_0%,#0c1324_100%)] flex items-center justify-center p-4 md:p-8">
-        
+
         {/* Fluid Modal Container */}
         <main className="relative w-full max-w-5xl h-[min(800px,90vh)] bg-surface-container-low rounded-xl shadow-2xl shadow-black/40 overflow-hidden flex flex-col md:flex-row border border-white/5">
-          
+
           {/* Left Column: Branded Visual (Desktop Only) */}
           <section className="hidden md:flex w-1/2 relative bg-surface-container-highest flex-col justify-end p-12 overflow-hidden">
             <div className="absolute inset-0 z-0">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img 
-                alt="Illuminated Academy Sanctuary" 
-                className="w-full h-full object-cover opacity-40 mix-blend-luminosity" 
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-DdQan_kXNiqc0FDN3KaYcHmU3RCa0o9Hg--zbscRgVwlYUNa-YK-DuYvLec4p60GdHQhkA5qk4qpZq8XPBXxoRwl8iT70y2xIU51lzBxrwa-4x9vJRxzn9eOw8Q490Pwu3qQB5Zd9DKqZpPkFBil7GE1xOaiYvSlpT7Oazb2DihEiCDAccCyeaU5v1zuL5WUyZV9AFqieov5BZ592hdED3HrFfGAFaAotal8YY5nctWk7a3-TND2Lu5TSTU9-VYQNyZK6FvZVcbn"
+              <img
+                alt="Isimova Academia"
+                className="w-full h-full object-cover opacity-40 mix-blend-luminosity"
+                src="https://isimova.com/landings/v2/img/profesional-diplimado.png?v=2"
               />
               <div className="absolute inset-0 bg-linear-to-t from-surface-container-low via-transparent to-transparent"></div>
             </div>
             <div className="relative z-10 space-y-4">
               <div className="flex items-center gap-3">
                 <span className="w-8 h-[2px] bg-primary"></span>
-                <span className="text-primary text-xs tracking-[0.2em] font-bold uppercase">El Santuario</span>
+                <span className="text-primary text-xs tracking-[0.2em] font-bold uppercase"></span>
               </div>
               <h1 className="text-4xl lg:text-5xl font-black tracking-tighter text-on-surface leading-none">
-                Domina tu oficio en<br/><span className="text-primary">The Illuminated Academy.</span>
+                Academia<br /><span className="text-primary">Isimova</span>
               </h1>
               <p className="text-on-surface-variant text-lg max-w-sm font-medium leading-relaxed">
                 Únete a una comunidad de estudiantes de élite en un entorno digital enfocado en resultados.
@@ -52,16 +52,16 @@ export default function LoginPage() {
               <form action={action} className="space-y-6">
                 <div className="space-y-2">
                   <label className="block text-xs font-bold uppercase tracking-widest text-primary" htmlFor="dni">Documento Nacional (DNI)</label>
-                  <input 
-                    className="w-full bg-surface-container-lowest border-none rounded-xl py-4 px-5 text-on-surface placeholder:text-on-surface-variant/40 focus:ring-1 focus:ring-primary shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)] focus:shadow-[0_0_0_1px_rgba(255,182,144,0.2),0_0_15px_2px_rgba(255,182,144,0.04)] outline-none transition-all font-medium tracking-wider" 
-                    id="dni" 
+                  <input
+                    className="w-full bg-surface-container-lowest border-none rounded-xl py-4 px-5 text-on-surface placeholder:text-on-surface-variant/40 focus:ring-1 focus:ring-primary shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)] focus:shadow-[0_0_0_1px_rgba(255,182,144,0.2),0_0_15px_2px_rgba(255,182,144,0.04)] outline-none transition-all font-medium tracking-wider"
+                    id="dni"
                     name="dni"
                     required
                     pattern="\d{8}"
                     maxLength={8}
                     minLength={8}
                     inputMode="numeric"
-                    placeholder="12345678" 
+                    placeholder="12345678"
                     type="text"
                   />
                 </div>
@@ -70,12 +70,12 @@ export default function LoginPage() {
                   <div className="flex justify-between items-center">
                     <label className="block text-xs font-bold uppercase tracking-widest text-primary" htmlFor="password">Contraseña</label>
                   </div>
-                  <input 
-                    className="w-full bg-surface-container-lowest border-none rounded-xl py-4 px-5 text-on-surface placeholder:text-on-surface-variant/40 focus:ring-1 focus:ring-primary shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)] focus:shadow-[0_0_0_1px_rgba(255,182,144,0.2),0_0_15px_2px_rgba(255,182,144,0.04)] outline-none transition-all font-medium" 
-                    id="password" 
+                  <input
+                    className="w-full bg-surface-container-lowest border-none rounded-xl py-4 px-5 text-on-surface placeholder:text-on-surface-variant/40 focus:ring-1 focus:ring-primary shadow-[inset_0_0_0_1px_rgba(255,255,255,0.05)] focus:shadow-[0_0_0_1px_rgba(255,182,144,0.2),0_0_15px_2px_rgba(255,182,144,0.04)] outline-none transition-all font-medium"
+                    id="password"
                     name="password"
                     required
-                    placeholder="••••••••" 
+                    placeholder="••••••••"
                     type="password"
                   />
                 </div>
@@ -86,9 +86,9 @@ export default function LoginPage() {
                   </div>
                 )}
 
-                <button 
+                <button
                   disabled={pending}
-                  className="w-full py-4 bg-linear-to-r from-primary to-on-primary-container text-primary-container font-black uppercase tracking-widest rounded-xl shadow-lg shadow-primary/10 hover:shadow-primary/20 transition-all active:scale-[0.98] mt-4 disabled:opacity-50 flex items-center justify-center gap-2" 
+                  className="w-full py-4 bg-linear-to-r from-primary to-on-primary-container text-primary-container font-black uppercase tracking-widest rounded-xl shadow-lg shadow-primary/10 hover:shadow-primary/20 transition-all active:scale-[0.98] mt-4 disabled:opacity-50 flex items-center justify-center gap-2"
                   type="submit"
                 >
                   {pending ? '...' : 'Ingresar'}
@@ -97,13 +97,13 @@ export default function LoginPage() {
 
               {/* Form Footer */}
               <p className="text-center text-sm text-on-surface-variant">
-                ¿Aún no tienes cuenta? 
+                ¿Aún no tienes cuenta?
                 <span className="text-primary font-bold hover:underline underline-offset-4 ml-1 cursor-pointer">Ver planes de estudio</span>
               </p>
             </div>
           </section>
         </main>
-        
+
         {/* Mobile Visual Handle (Design Intent Reference) */}
         <div className="md:hidden fixed bottom-6 left-0 w-full flex justify-center z-50 pointer-events-none">
           <div className="w-12 h-1.5 bg-white/20 rounded-full"></div>

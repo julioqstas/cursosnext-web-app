@@ -105,120 +105,132 @@ export default async function LessonPage({ params }: PageProps) {
   const markComplete = markLessonCompleteAction.bind(null, lessonId, courseId)
 
   return (
-    <div className="min-h-screen bg-gray-950 flex flex-col">
+    <div className="min-h-dvh bg-surface flex flex-col font-sans antialiased text-on-surface">
       {/* Top nav */}
-      <header className="bg-gray-900 border-b border-gray-800 h-16 flex items-center px-4 sm:px-8 gap-4 sticky top-0 z-20">
-        <Link href="/dashboard" className="text-gray-400 hover:text-white transition-colors flex items-center gap-2">
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+      <header className="bg-surface/80 backdrop-blur-md h-20 flex items-center px-4 sm:px-8 gap-4 sticky top-0 z-50">
+        <Link href="/dashboard" className="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2 group">
+          <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
           </svg>
-          <span className="text-sm font-medium hidden sm:inline">Volver</span>
+          <span className="text-sm font-bold tracking-wide hidden sm:inline">VOLVER</span>
         </Link>
-        <div className="h-6 w-px bg-gray-800 mx-2"></div>
+        <div className="h-6 w-px bg-white/10 mx-2"></div>
         <div className="flex-1 min-w-0 flex items-center gap-3">
           <span className="text-white font-bold tracking-wide">{course.title}</span>
         </div>
       </header>
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-[1400px] w-full mx-auto px-4 md:px-8 py-6 flex flex-col lg:flex-row gap-8 items-start">
+      <main className="flex-1 max-w-[1400px] w-full mx-auto px-4 md:px-8 py-8 flex flex-col lg:flex-row gap-10 items-start">
         
         {/* Left: Video + Content (approx 65-70%) */}
         <div className="flex-1 min-w-0 w-full">
           {/* Video Container */}
-          <div className="rounded-2xl overflow-hidden bg-black shadow-2xl mb-8 border border-gray-800">
+          <div className="rounded-3xl overflow-hidden bg-surface-container-lowest shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] mb-10 relative">
             {currentLesson.youtube_id ? (
               <YouTubePlayer youtubeId={currentLesson.youtube_id} title={currentLesson.title} />
             ) : (
-              <div className="aspect-video flex items-center justify-center text-gray-600 bg-gray-900">Sin video</div>
+              <div className="aspect-video flex items-center justify-center text-on-surface-variant font-light bg-surface-container-low">Video no disponible</div>
             )}
+            
+            {/* Ambient glow around video frame purely for esthetics layer */}
+            <div className="absolute inset-0 pointer-events-none rounded-3xl ring-1 ring-inset ring-white/5"></div>
           </div>
 
           {/* Lesson Metadata & Content */}
-          <div className="mb-10 lg:pr-8">
-            <div className="flex items-center gap-2 text-xs font-bold text-indigo-400 tracking-wider mb-3 uppercase">
+          <div className="mb-12 lg:pr-8">
+            <div className="flex items-center gap-3 text-xs font-bold text-primary tracking-widest mb-4 uppercase">
               <span>MÓDULO {groupedModules.findIndex((m: any) => m.id === currentLesson.module_id) + 1}</span>
-              <span className="text-gray-600">•</span>
-              <span className="text-gray-400 font-medium tracking-normal">Lección {currentLesson.order_index} de {allLessons.length}</span>
+              <span className="text-white/20">•</span>
+              <span className="text-on-surface-variant font-medium tracking-normal text-sm">Lección {currentLesson.order_index} de {allLessons.length}</span>
             </div>
             
-            <h1 className="text-3xl font-extrabold text-white mb-6 tracking-tight">{currentLesson.title}</h1>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-on-surface mb-8 tracking-tight leading-tight">{currentLesson.title}</h1>
             
             {/* Instructor / Key Takeaways generic block */}
-            <div className="flex bg-gray-900 border border-gray-800 rounded-xl p-4 mb-8 items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-indigo-600/20 text-indigo-400 flex items-center justify-center font-bold text-lg border border-indigo-500/30">
+            <div className="flex bg-surface-container-low rounded-2xl p-5 mb-10 items-center gap-5 shadow-xl shadow-black/20">
+              <div className="w-14 h-14 rounded-full bg-primary/20 text-primary flex items-center justify-center font-bold text-xl shadow-[inset_0_0_15px_rgba(249,115,22,0.2)]">
                 {course.title.charAt(0)}
               </div>
               <div>
-                <p className="text-white font-medium text-sm">Instructor</p>
-                <p className="text-gray-400 text-xs">ISIMOVA Academy</p>
+                <p className="text-on-surface font-bold text-sm tracking-wide">Instructor del Curso</p>
+                <p className="text-primary text-xs font-medium uppercase tracking-widest mt-1">ISIMOVA Academy</p>
               </div>
             </div>
 
             {/* Markdown text */}
-            <div className="text-gray-300 leading-relaxed text-base prose prose-invert max-w-none prose-indigo">
+            <div className="text-on-surface-variant leading-relaxed text-lg prose prose-invert prose-p:text-on-surface-variant prose-headings:text-on-surface prose-a:text-primary max-w-none">
               {currentLesson.content_md ? (
                 <div className="whitespace-pre-wrap">{currentLesson.content_md}</div>
               ) : (
-                <p className="italic text-gray-500">Sin contenido adicional dictado para esta lección.</p>
+                <p className="italic text-on-surface-variant/50 font-light">Sin material complementario de lectura para esta lección.</p>
               )}
             </div>
           </div>
         </div>
 
         {/* Right: Sidebar Cards (approx 30-35%) */}
-        <aside className="w-full lg:w-[380px] shrink-0 flex flex-col gap-6 sticky top-24">
+        <aside className="w-full lg:w-[400px] shrink-0 flex flex-col gap-6 sticky top-28">
           
           {/* Progress Card */}
-          <div className="bg-gray-900 rounded-2xl p-6 border border-gray-800 shadow-md">
-            <div className="flex justify-between items-center mb-3">
-              <h3 className="text-white text-xs font-bold tracking-wider uppercase">Progreso del Curso</h3>
-              <span className="text-indigo-400 font-bold">{allLessons.length > 0 ? Math.round((completedIds.size / allLessons.length) * 100) : 0}%</span>
+          <div className="bg-surface-container-low rounded-3xl p-8 shadow-2xl shadow-black/40">
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-on-surface text-sm font-bold tracking-widest uppercase">Tu Progreso</h3>
+              <span className="text-primary font-bold text-xl">{allLessons.length > 0 ? Math.round((completedIds.size / allLessons.length) * 100) : 0}%</span>
             </div>
-            <div className="w-full bg-gray-950 rounded-full h-2 mb-3 border border-gray-800">
-              <div 
-                className="bg-indigo-500 h-2 rounded-full transition-all duration-500" 
-                style={{ width: `${allLessons.length > 0 ? (completedIds.size / allLessons.length) * 100 : 0}%` }}
-              ></div>
-            </div>
-            <div className="flex justify-between text-xs text-gray-400 font-medium">
-              <span>{completedIds.size} de {allLessons.length} lecciones</span>
+            
+            <div className="flex justify-between text-xs text-on-surface-variant font-medium mb-3">
+              <span>{completedIds.size} completadas</span>
               <span>{allLessons.length - completedIds.size} restantes</span>
+            </div>
+            
+            <div className="w-full bg-surface-container-highest rounded-full h-2.5 overflow-hidden">
+              <div 
+                className="bg-linear-to-r from-primary to-primary-variant h-full rounded-full transition-all duration-1000 ease-out shadow-[0_0_12px_rgba(249,115,22,0.6)] relative" 
+                style={{ width: `${allLessons.length > 0 ? (completedIds.size / allLessons.length) * 100 : 0}%` }}
+              >
+                <div className="absolute top-0 right-0 bottom-0 w-2 bg-white/40 blur-[2px] rounded-full"></div>
+              </div>
             </div>
           </div>
 
           {/* Syllabus Card */}
-          <div className="bg-gray-900 rounded-2xl border border-gray-800 shadow-md flex flex-col overflow-hidden max-h-[60vh]">
-            <div className="p-5 border-b border-gray-800 flex justify-between items-center bg-gray-900 z-10">
-              <h3 className="text-white text-xs font-bold tracking-wider uppercase">Contenido del Curso</h3>
-              <svg className="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <div className="bg-surface-container-low rounded-3xl shadow-2xl shadow-black/40 flex flex-col overflow-hidden lg:max-h-[60vh]">
+            <div className="p-6 pb-4 flex justify-between items-center bg-surface-container-low z-10">
+              <h3 className="text-on-surface text-sm font-bold tracking-widest uppercase">Contenido del Curso</h3>
+              <svg className="w-5 h-5 text-on-surface-variant" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7-7-7-7" />
               </svg>
             </div>
-            <div className="flex-1 overflow-y-auto custom-scrollbar">
+            
+            <div className="flex-1 overflow-y-auto custom-scrollbar px-2 pb-2">
               <LessonAccordion courseId={courseId} modules={groupedModules} />
             </div>
           </div>
 
           {/* Complete Button */}
           {!isCompleted && (
-            <form action={markComplete}>
+            <form action={markComplete} className="mt-2">
               <button type="submit" 
-                className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm py-4 rounded-xl shadow-lg transition-transform hover:scale-[1.02] uppercase tracking-wide flex items-center justify-center gap-2">
-                Completar y Continuar
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
+                className="w-full bg-linear-to-r from-primary to-primary-variant hover:to-primary-fixed-variant text-white font-bold text-sm py-5 px-6 rounded-2xl shadow-[0_8px_20px_-6px_rgba(249,115,22,0.5)] transition-all hover:-translate-y-1 active:scale-[0.98] uppercase tracking-widest flex items-center justify-between">
+                <span>Completar Lección</span>
+                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm">
+                  <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
               </button>
             </form>
           )}
           
           {isCompleted && (
-            <div className="w-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold text-sm py-4 rounded-xl flex items-center justify-center gap-2 uppercase tracking-wide">
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              Lección Completada
+            <div className="w-full bg-emerald-500/10 text-emerald-400 font-bold text-sm py-5 px-6 rounded-2xl flex items-center justify-center gap-3 uppercase tracking-widest shadow-[inset_0_0_20px_rgba(16,185,129,0.1)] mt-2">
+              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <span className="mt-0.5">Lección Completada</span>
             </div>
           )}
 

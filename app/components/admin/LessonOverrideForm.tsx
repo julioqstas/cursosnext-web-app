@@ -3,47 +3,47 @@
 import { useActionState } from 'react'
 import { upsertLessonOverrideAction } from '@/app/actions/enrollments'
 import type { LessonOverride } from '@/lib/database.types'
+import { useFormStatus } from 'react-dom'
 
-interface LessonOverrideFormProps {
+interface Props {
   enrollmentId: string
   lessonId: string
   userId: string
   currentOverride: LessonOverride | null
 }
 
-export default function LessonOverrideForm({
-  enrollmentId,
-  lessonId,
-  userId,
-  currentOverride,
-}: LessonOverrideFormProps) {
-  const [state, action, pending] = useActionState(upsertLessonOverrideAction, null)
+function SubmitButton() {
+  const { pending } = useFormStatus()
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className="text-xs font-bold uppercase tracking-widest bg-primary/20 hover:bg-primary text-primary hover:text-on-primary rounded-lg px-4 py-2 transition-all disabled:opacity-50"
+    >
+      {pending ? '...' : 'Fijar'}
+    </button>
+  )
+}
 
-  // Format date for input[type=datetime-local]
-  const defaultDate = currentOverride
-    ? new Date(currentOverride.manual_unlock_date).toISOString().slice(0, 16)
-    : ''
+export default function LessonOverrideForm({ enrollmentId, lessonId, userId, currentOverride }: Props) {
+  const [state, action] = useActionState(upsertLessonOverrideAction, null)
 
   return (
     <form action={action} className="flex items-center gap-2">
       <input type="hidden" name="enrollment_id" value={enrollmentId} />
       <input type="hidden" name="lesson_id" value={lessonId} />
       <input type="hidden" name="user_id" value={userId} />
-      <input
-        type="datetime-local"
-        name="manual_unlock_date"
-        defaultValue={defaultDate}
-        className="bg-gray-800 border border-gray-700 text-white text-xs rounded-lg px-2 py-1.5
-                   focus:outline-none focus:border-indigo-500 transition"
-      />
-      <button
-        type="submit"
-        disabled={pending}
-        className="text-xs bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-400
-                   border border-indigo-600/30 rounded-lg px-2 py-1.5 transition-colors disabled:opacity-50 whitespace-nowrap"
-      >
-        {currentOverride ? 'Actualizar' : 'Fijar'}
-      </button>
+      <div className="flex-1 min-w-[130px]">
+        <input
+          type="date"
+          name="manual_unlock_date"
+          defaultValue={currentOverride ? new Date(currentOverride.manual_unlock_date).toISOString().split('T')[0] : ''}
+          required
+          className="w-full bg-surface-container-low text-on-surface text-xs rounded-lg px-3 py-2 ring-1 ring-inset ring-white/10 outline-none focus:ring-primary shadow-inner transition-all"
+        />
+      </div>
+      <SubmitButton />
+      {state?.error && <p className="text-red-400 text-[10px] mt-1 truncate max-w-[100px]" title={state.error}>{state.error}</p>}
     </form>
   )
 }

@@ -104,30 +104,30 @@ export default async function AdminAlumnoDetailPage({ params }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950">
-      <header className="bg-gray-900 border-b border-gray-800 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center gap-3">
-          <Link href="/admin/alumnos" className="text-gray-400 hover:text-white transition-colors">
+    <div className="min-h-dvh bg-surface text-on-surface font-sans antialiased">
+      <header className="bg-surface/80 backdrop-blur-md sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center gap-4">
+          <Link href="/admin/alumnos" className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-primary/20 transition-all">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
             </svg>
           </Link>
-          <h1 className="text-white font-semibold">Detalle: {profile.full_name}</h1>
+          <h1 className="text-on-surface font-bold text-lg tracking-wide">Ficha del Alumno: <span className="text-primary font-black ml-1">{profile.full_name}</span></h1>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-10 space-y-8">
+      <main className="max-w-7xl mx-auto px-6 py-12 space-y-10">
         {/* Profile card */}
-        <div className="bg-gray-900 border border-gray-800 rounded-2xl p-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="bg-surface-container-low rounded-3xl p-8 shadow-xl shadow-black/20 grid grid-cols-2 sm:grid-cols-4 gap-8">
           {[
-            { label: 'Nombre', value: profile.full_name },
-            { label: 'DNI', value: profile.dni },
-            { label: 'Rol', value: profile.role },
-            { label: 'Estado', value: profile.is_active ? 'Activo' : 'Inactivo' },
+            { label: 'Nombre Completo', value: profile.full_name },
+            { label: 'Documento Nacional', value: profile.dni },
+            { label: 'Rol del Sistema', value: profile.role },
+            { label: 'Estado Actual', value: profile.is_active ? 'Activo' : 'Inactivo' },
           ].map((f) => (
             <div key={f.label}>
-              <p className="text-gray-500 text-xs mb-1">{f.label}</p>
-              <p className="text-white font-medium">{String(f.value)}</p>
+              <p className="text-on-surface-variant font-bold text-xs mb-2 uppercase tracking-widest">{f.label}</p>
+              <p className="text-on-surface font-bold text-lg">{String(f.value)}</p>
             </div>
           ))}
         </div>
@@ -136,22 +136,22 @@ export default async function AdminAlumnoDetailPage({ params }: PageProps) {
 
         {/* Enrollments */}
         {enrollmentDetails.length === 0 ? (
-          <p className="text-gray-500 text-sm">Sin matrículas.</p>
+          <p className="text-on-surface-variant/70 font-light italic">Este alumno no tiene matrículas activas.</p>
         ) : (
-          <div className="space-y-6">
+          <div className="space-y-8">
             {enrollmentDetails.map(({ enrollment, allLessons, overrides }) => {
               const course = enrollment.courses!
 
               return (
-                <div key={enrollment.id} className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden">
+                <div key={enrollment.id} className="bg-surface-container-low rounded-3xl overflow-hidden shadow-2xl shadow-black/20 pb-4">
                   {/* Enrollment header */}
-                  <div className="px-6 py-4 border-b border-gray-800 flex items-center justify-between flex-wrap gap-3">
+                  <div className="px-8 py-8 bg-surface-container-highest/20 flex items-center justify-between flex-wrap gap-4 rounded-t-3xl">
                     <div>
-                      <h2 className="text-white font-semibold">{course.title}</h2>
-                      <p className="text-gray-500 text-sm">
-                        Matriculado: {new Date(enrollment.enrolled_at).toLocaleDateString('es-PE')} ·
-                        Drip: {enrollment.drip_interval_days} días ·
-                        Vence: {enrollment.expires_at ? new Date(enrollment.expires_at).toLocaleDateString('es-PE') : 'Sin fecha'}
+                      <h2 className="text-on-surface font-black text-2xl tracking-wide leading-tight">{course.title}</h2>
+                      <p className="text-on-surface-variant font-medium text-xs mt-2 uppercase tracking-widest">
+                        Matriculado: <span className="text-white/60 mr-2">{new Date(enrollment.enrolled_at).toLocaleDateString('es-PE')}</span> • 
+                        <span className="ml-2">Frecuencia Drip:</span> <span className="text-white/60 mr-2">{enrollment.drip_interval_days} días</span> • 
+                        <span className="ml-2">Vencimiento:</span> <span className="text-white/60">{enrollment.expires_at ? new Date(enrollment.expires_at).toLocaleDateString('es-PE') : 'Sin fecha'}</span>
                       </p>
                     </div>
                     <EnrollmentActions
@@ -162,23 +162,23 @@ export default async function AdminAlumnoDetailPage({ params }: PageProps) {
                   </div>
 
                   {/* Lessons table */}
-                  <div className="overflow-x-auto">
+                  <div className="overflow-x-auto px-4 mt-2">
                     <table className="w-full text-sm">
-                      <thead className="bg-gray-800/50">
+                      <thead>
                         <tr>
-                          <th className="text-left px-6 py-3 text-gray-400 font-medium">Lección</th>
-                          <th className="text-left px-6 py-3 text-gray-400 font-medium">Estado</th>
-                          <th className="text-left px-6 py-3 text-gray-400 font-medium">Desbloqueo</th>
-                          <th className="text-left px-6 py-3 text-gray-400 font-medium">Override</th>
+                          <th className="text-left px-6 py-4 text-on-surface-variant font-bold text-xs uppercase tracking-widest border-b border-white/5">Lección del Curso</th>
+                          <th className="text-left px-6 py-4 text-on-surface-variant font-bold text-xs uppercase tracking-widest border-b border-white/5">Estado de Acceso</th>
+                          <th className="text-left px-6 py-4 text-on-surface-variant font-bold text-xs uppercase tracking-widest border-b border-white/5">Fecha de Desbloqueo</th>
+                          <th className="text-left px-6 py-4 text-on-surface-variant font-bold text-xs uppercase tracking-widest border-b border-white/5">Sobrescribir Restricción</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-gray-800">
+                      <tbody>
                         {allLessons.map((lesson) => {
                           const unlocked = isLessonUnlocked(lesson, enrollment, overrides, allLessons, completedIds)
                           const override = overrides.find((o) => o.lesson_id === lesson.id)
                           const isCompleted = completedIds.has(lesson.id)
 
-                          let unlockLabel = 'Libre'
+                          let unlockLabel = 'Acceso Libre'
                           if (enrollment.drip_interval_days > 0 && !override) {
                             const sorted = [...allLessons].sort((a, b) =>
                               a.moduleOrderIndex !== b.moduleOrderIndex
@@ -194,29 +194,29 @@ export default async function AdminAlumnoDetailPage({ params }: PageProps) {
                           }
 
                           return (
-                            <tr key={lesson.id} className="hover:bg-gray-800/30 transition-colors">
-                              <td className="px-6 py-3 text-gray-200">{lesson.title}</td>
-                              <td className="px-6 py-3">
-                                <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                            <tr key={lesson.id} className="hover:bg-surface-container-highest/30 transition-colors border-b border-white/5 last:border-b-0">
+                              <td className="px-6 py-4 text-on-surface font-medium truncate max-w-[200px]" title={lesson.title}>{lesson.title}</td>
+                              <td className="px-6 py-4">
+                                <span className={`text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-widest ${
                                   isCompleted
-                                    ? 'bg-emerald-500/20 text-emerald-400'
+                                    ? 'bg-emerald-500/10 text-emerald-400'
                                     : unlocked
-                                    ? 'bg-indigo-500/20 text-indigo-400'
-                                    : 'bg-gray-700 text-gray-400'
+                                    ? 'bg-primary/10 text-primary'
+                                    : 'bg-surface-container-highest text-on-surface-variant/60'
                                 }`}>
-                                  {isCompleted ? '✓ Completada' : unlocked ? 'Desbloqueada' : '🔒 Bloqueada'}
+                                  {isCompleted ? '✓ Completada' : unlocked ? 'Desbloqueada' : 'Bloqueada'}
                                 </span>
                               </td>
-                              <td className="px-6 py-3 text-gray-400 text-xs">
+                              <td className="px-6 py-4 text-on-surface-variant font-medium text-xs tracking-wider">
                                 {override ? (
-                                  <span className="text-yellow-400">
+                                  <span className="text-orange-400 font-bold bg-orange-500/10 px-2.5 py-1 rounded-md">
                                     Override: {new Date(override.manual_unlock_date).toLocaleDateString('es-PE')}
                                   </span>
                                 ) : (
                                   unlockLabel
                                 )}
                               </td>
-                              <td className="px-6 py-3">
+                              <td className="px-6 py-4">
                                 <LessonOverrideForm
                                   enrollmentId={enrollment.id}
                                   lessonId={lesson.id}

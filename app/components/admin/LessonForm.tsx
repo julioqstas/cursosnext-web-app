@@ -2,6 +2,7 @@
 
 import { useActionState, useState, useEffect } from 'react'
 import { upsertLessonAction } from '@/app/actions/courses'
+import RichTextEditor from './RichTextEditor'
 
 export default function LessonForm({ moduleId, nextOrder, initialData, onCancel }: { moduleId: string; nextOrder: number; initialData?: any; onCancel?: () => void }) {
   const [state, action, pending] = useActionState(upsertLessonAction, null)
@@ -50,10 +51,8 @@ export default function LessonForm({ moduleId, nextOrder, initialData, onCancel 
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Contenido Markdown</label>
-          <textarea name="content_md" rows={4} placeholder="# Apuntes de la lección..." defaultValue={initialData?.content_md}
-            className="w-full bg-gray-800 border border-gray-700 text-white rounded-lg px-3 py-2 text-xs font-mono
-                       placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition resize-y" />
+          <label className="block text-xs font-medium text-gray-500 mb-2">Contenido de la Lección</label>
+          <RichTextEditor name="content_md" defaultValue={initialData?.content_md} placeholder="Redacta el contenido de la lección aquí..." />
         </div>
       </div>
 

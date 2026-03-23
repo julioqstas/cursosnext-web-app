@@ -147,10 +147,10 @@ export default async function LessonPage({ params }: PageProps) {
             
             <h1 className="text-4xl md:text-5xl font-extrabold text-on-surface mb-8 tracking-tight leading-tight">{currentLesson.title}</h1>
 
-            {/* Markdown text */}
+            {/* Formatted HTML Text */}
             <div className="text-on-surface-variant leading-relaxed text-lg prose prose-invert prose-p:text-on-surface-variant prose-headings:text-on-surface prose-a:text-primary max-w-none">
               {currentLesson.content_md ? (
-                <div className="whitespace-pre-wrap">{currentLesson.content_md}</div>
+                <div dangerouslySetInnerHTML={{ __html: currentLesson.content_md }} />
               ) : (
                 <p className="italic text-on-surface-variant/50 font-light">Sin material complementario de lectura para esta lección.</p>
               )}

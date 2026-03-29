@@ -248,6 +248,57 @@ function LoginForm({
   )
 }
 
+// ─── Interactive Background ───────────────────────────────────────────────────
+function InteractiveSpotlight() {
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+  const [isHovered, setIsHovered] = useState(false)
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    setPosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    })
+  }
+
+  return (
+    <div 
+      className="absolute inset-0 bg-[#0a1128] overflow-hidden"
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Dot Pattern Overlay */}
+      <div 
+        className="absolute inset-0 opacity-20"
+        style={{
+          backgroundImage: 'radial-gradient(circle at center, #ffffff 1px, transparent 1px)',
+          backgroundSize: '24px 24px'
+        }}
+      />
+      
+      {/* Orange Spotlight (Vibrant ISIMOVA Orange) */}
+      <div
+        className="pointer-events-none absolute inset-0 transition-opacity duration-500 ease-in-out"
+        style={{
+          opacity: isHovered ? 1 : 0,
+          background: `radial-gradient(circle 700px at ${position.x}px ${position.y}px, rgba(249, 115, 22, 0.15), transparent 100%)`
+        }}
+      />
+      <div
+        className="pointer-events-none absolute inset-0 transition-opacity duration-300 ease-in-out"
+        style={{
+          opacity: isHovered ? 1 : 0,
+          background: `radial-gradient(circle 350px at ${position.x}px ${position.y}px, rgba(249, 115, 22, 0.22), transparent 100%)`
+        }}
+      />
+      
+      {/* Subtle ambient glow to avoid pitch black when not hovered */}
+      <div className="absolute inset-0 bg-linear-to-tr from-[#0a1128] via-transparent to-primary/5 pointer-events-none" />
+    </div>
+  )
+}
+
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function LoginPage() {
   const [state, action, pending] = useActionState(loginAction, null)
@@ -263,47 +314,30 @@ export default function LoginPage() {
 
       {/* ══════════════════════════════════════
           DESKTOP LAYOUT (md+)
-          Light split: Image+Slideshow | Form
+          Interactive Dynamic Background | Form
       ══════════════════════════════════════ */}
       <div className="hidden md:flex min-h-dvh bg-slate-50">
 
         {/* ── Left: Brand panel ──────────────── */}
         <div className="w-1/2 relative flex flex-col overflow-hidden">
 
-          {/* Full-bleed brand image */}
-          <div className="absolute inset-0">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://isimova.com/landings/v2/img/profesional-diplimado.png?v=2"
-              alt="Profesional certificada ISIMOVA"
-              className="w-full h-full object-cover object-center"
-            />
-            {/* Subtle light overlay so text is readable */}
-            <div className="absolute inset-0 bg-linear-to-b from-white/20 via-transparent to-white/80" />
-          </div>
-
-          {/* Logo top-left (over image) */}
-          <div className="relative z-10 p-10">
-            <a href="https://isimova.com" tabIndex={-1}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={LOGO_COLOR} alt="ISIMOVA" className="h-10 w-auto object-contain drop-shadow-sm" />
-            </a>
-          </div>
+          {/* Interactive Mouse Spotlight Background */}
+          <InteractiveSpotlight />
 
           {/* ── Glassmorphism slideshow card ── */}
-          {/* Positioned in the lower-center of the panel, NOT at the very bottom */}
-          <div className="relative z-10 flex-1 flex items-end pb-16 px-10">
+          {/* We make the glassmorphism dark to contrast perfectly with the deep blue background */}
+          <div className="relative z-10 flex-1 flex items-end pb-16 px-10 pointer-events-none">
             <div
-              className="w-full rounded-2xl p-6"
+              className="w-full rounded-2xl p-6 pointer-events-auto"
               style={{
-                background: 'rgba(255,255,255,0.72)',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-                border: '1px solid rgba(255,255,255,0.8)',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.9)',
+                background: 'rgba(15, 23, 42, 0.45)', // slate-900 modified
+                backdropFilter: 'blur(24px)',
+                WebkitBackdropFilter: 'blur(24px)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)',
               }}
             >
-              <BrandSlideshow dark={false} />
+              <BrandSlideshow dark={true} />
             </div>
           </div>
         </div>

@@ -14,6 +14,10 @@
   --color-primary: #f97316;
   --color-primary-variant: #ea580c;
   --color-primary-fixed-variant: #cf5b00;
+  
+  /* Typography on primary */
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #7c2d12;
 
   /* Typography / Content */
   --color-on-surface: #ffffff;

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es" class="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión | ISIMOVA</title>
+    <meta name="theme-color" content="#f97316">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { isimova: { blue: '#0a1128', orange: '#f97316', orangeHover: '#ea580c' } } } } }
+    </script>
+    <style>
+        body {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900 dark:bg-slate-950 dark:text-white min-h-screen flex font-sans antialiased">
+
+    <!-- OVERLAY MÓVIL (Oscurece fondo cuando se abre Form) -->
+    <div id="login-overlay"
+        class="fixed inset-0 z-[50] bg-white/50 dark:bg-slate-950/10 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300 md:hidden">
+    </div>
+
+    <!-- PANEL FORMULARIO (Bottom Sheet en Móvil / Mitad Izquierda en Desktop) -->
+    <div id="login-form-panel"
+        class="fixed inset-x-0 bottom-0 z-[60] bg-white dark:bg-slate-950 rounded-t-3xl shadow-[0_-20px_60px_rgba(0,0,0,0.18)] dark:shadow-[0_-20px_60px_rgba(0,0,0,0.65)] md:shadow-none transform translate-y-full transition-transform duration-500 ease-in-out md:relative md:translate-y-0 md:rounded-none md:flex w-full md:w-1/2 flex-col justify-between p-8 md:p-12 lg:p-16 h-auto max-h-[90vh] md:max-h-none overflow-y-auto md:overflow-visible">
+
+        <!-- Handle (Barrita de Swipe) solo visible en móvil -->
+        <div class="md:hidden flex justify-center w-full mb-6">
+            <div class="w-12 h-1.5 bg-gray-300 dark:bg-gray-700 rounded-full"></div>
+        </div>
+
+        <div class="flex justify-between items-center w-full max-w-md mx-auto hidden md:flex mb-12">
+            <a href="index.html" class="inline-block">
+                <img src="assets/img/Isimova-Color-Horizontal.png" alt="ISIMOVA"
+                    class="h-10 md:h-12 w-auto object-contain dark:hidden">
+                <img src="assets/img/Isimova-White-Horizontal.png" alt="ISIMOVA"
+                    class="h-10 md:h-12 w-auto object-contain hidden dark:block">
+            </a>
+            <button id="theme-toggle"
+                class="p-2 rounded-full bg-gray-200 dark:bg-slate-800 text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-slate-700 transition-colors">
+                <svg id="theme-toggle-dark-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                </svg>
+                <svg id="theme-toggle-light-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                        fill-rule="evenodd" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </div>
+
+        <div class="w-full max-w-md mx-auto my-auto md:mt-auto">
+            <h1 class="text-3xl font-bold mb-2">Ingresa a tu cuenta</h1>
+            <p class="text-gray-500 dark:text-gray-400 mb-8 text-sm">Inicia sesión para continuar aprendiendo en nuestra
+                Biblioteca de Cursos.</p>
+            <form action="biblioteca.html" method="GET" class="space-y-5">
+                <div>
+                    <label for="dni"
+                        class="block text-sm font-medium mb-1.5 text-gray-700 dark:text-gray-300">DNI</label>
+                    <input type="text" id="dni" required placeholder="12345678" pattern="\d{8}" maxlength="8"
+                        minlength="8" inputmode="numeric" title="Debe ingresar exactamente 8 números"
+                        class="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 focus:border-isimova-orange focus:ring-1 focus:ring-isimova-orange outline-none transition-colors text-gray-900 dark:text-white placeholder-gray-400">
+                </div>
+                <div>
+                    <label for="password"
+                        class="block text-sm font-medium mb-1.5 text-gray-700 dark:text-gray-300">Contraseña</label>
+                    <div class="relative">
+                        <input type="password" id="password" required placeholder="••••••••" pattern="\d{8}"
+                            maxlength="8" minlength="8" inputmode="numeric" title="Debe ingresar exactamente 8 números"
+                            class="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-900 border border-gray-300 dark:border-slate-700 focus:border-isimova-orange focus:ring-1 focus:ring-isimova-orange outline-none transition-colors text-gray-900 dark:text-white">
+                    </div>
+                </div>
+                <button type="submit"
+                    class="w-full py-3.5 px-4 bg-isimova-orange hover:bg-isimova-orangeHover text-white font-bold rounded-lg shadow-lg shadow-orange-500/30 transition-all duration-300 mt-2">Iniciar
+                    Sesión</button>
+            </form>
+            <p class="mt-8 text-center text-sm text-gray-600 dark:text-gray-400">¿Aún no tienes cuenta? <a
+                    href="acerca.html" class="font-bold text-isimova-orange hover:text-isimova-orangeHover">Ver planes
+                    de estudio</a></p>
+        </div>
+        <div class="w-full max-w-md mx-auto text-center mt-8">
+            <p class="text-xs text-gray-500">&copy; 2026 ISIMOVA. Todos los derechos reservados.</p>
+        </div>
+    </div>
+
+    <!-- PANEL AFICHE (Vista principal en Móvil / Mitad Derecha en Desktop) -->
+    <div
+        class="flex w-full min-h-[100dvh] md:min-h-0 md:w-1/2 bg-slate-100 dark:bg-isimova-blue relative overflow-hidden flex-col justify-center items-center p-8 md:p-12 text-center border-l border-gray-100 dark:border-white/5 transition-colors duration-300">
+
+        <!-- Header superior visible solo en móvil (Logo + Tema) -->
+        <div class="absolute top-0 left-0 right-0 p-6 flex justify-between items-center z-50 md:hidden">
+            <a href="index.html" class="inline-block relative z-[60]">
+                <img src="assets/img/Isimova-Color-Horizontal.png" alt="ISIMOVA"
+                    class="h-8 w-auto object-contain dark:hidden">
+                <img src="assets/img/Isimova-White-Horizontal.png" alt="ISIMOVA"
+                    class="h-8 w-auto object-contain hidden dark:block">
+            </a>
+            <!-- El botón de tema original servirá para desktop, y necesitamos clonar o reusar la config, pero el script usaba un ID, no clase. -->
+            <button onclick="toggleThemeGlobal()"
+                class="p-2 rounded-full bg-white/50 backdrop-blur-md dark:bg-slate-800/50 text-gray-600 dark:text-gray-300 transition-colors relative z-[60]">
+                <svg class="dark-icon-clone w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                </svg>
+                <svg class="light-icon-clone w-5 h-5 hidden" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z">
+                    </path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Canvas para partículas -->
+        <div id="tsparticles" class="absolute inset-0 z-0 pointer-events-none"></div>
+
+
+        <div
+            class="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-blue-600 rounded-full mix-blend-multiply filter blur-[80px] opacity-30">
+        </div>
+        <div
+            class="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-orange-600 rounded-full mix-blend-multiply filter blur-[80px] opacity-20">
+        </div>
+        <div class="relative z-10 max-w-lg">
+            <div
+                class="mb-8 inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-sm shadow-xl">
+                <svg class="w-10 h-10 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                    </path>
+                </svg>
+            </div>
+            <h2
+                class="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-6 leading-tight transition-colors">
+                Eleva tu perfil profesional al
+                siguiente nivel.</h2>
+            <p class="text-lg text-gray-600 dark:text-blue-200 mb-10 font-light leading-relaxed transition-colors">
+                Accede a nuestra Biblioteca de Cursos,
+                interactúa con casos reales y obtén certificaciones con validez internacional.</p>
+            <ul class="text-left space-y-4 inline-block">
+                <li class="flex items-center text-gray-700 dark:text-blue-100 transition-colors"><svg
+                        class="w-5 h-5 text-green-500 dark:text-green-400 mr-3 shrink-0" fill="currentColor"
+                        viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clip-rule="evenodd"></path>
+                    </svg> Más de 1200 horas académicas.</li>
+                <li class="flex items-center text-gray-700 dark:text-blue-100 transition-colors"><svg
+                        class="w-5 h-5 text-green-500 dark:text-green-400 mr-3 shrink-0" fill="currentColor"
+                        viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clip-rule="evenodd"></path>
+                    </svg> Acompañamiento estratégico continuo.</li>
+                <li class="flex items-center text-gray-700 dark:text-blue-100 transition-colors"><svg
+                        class="w-5 h-5 text-green-500 dark:text-green-400 mr-3 shrink-0" fill="currentColor"
+                        viewBox="0 0 20 20">
+                        <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clip-rule="evenodd"></path>
+                    </svg> Casos de estudio 100% aplicables.</li>
+            </ul>
+
+            <!-- Botonera fija inferior en móvil para abrir el Bottom Sheet -->
+            <div class="mt-12 w-full md:hidden flex flex-col gap-4 relative z-50">
+                <button id="open-login-btn"
+                    class="w-full py-4 px-6 bg-isimova-orange hover:bg-isimova-orangeHover text-white font-bold rounded-xl shadow-lg shadow-orange-500/30 flex items-center justify-between transition-all duration-300 transform active:scale-95">
+                    <span>INGRESAR A MI CUENTA</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </button>
+                <div class="flex justify-center items-center gap-2 text-sm text-gray-600 dark:text-blue-200">
+                    <span>¿No tienes cuenta?</span>
+                    <a href="acerca.html"
+                        class="font-bold text-isimova-orange underline underline-offset-2">Regístrate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+    <script>
+        // --- LÓGICA DE PARTÍCULAS ---
+        function loadParticles(theme) {
+            const isDark = theme === 'dark';
+            tsParticles.load("tsparticles", {
+                background: {
+                    color: { value: "transparent" } // Tomamos el color del div padre
+                },
+                fpsLimit: 60,
+                interactivity: {
+                    events: { onHover: { enable: true, mode: "grab" }, resize: true },
+                    modes: { grab: { distance: 180, links: { opacity: 0.8, color: "#f97316" } } },
+                },
+                particles: {
+                    color: { value: isDark ? ["#3b82f6", "#f97316", "#ffffff"] : ["#0a1128", "#f97316", "#2563eb"] },
+                    links: {
+                        color: isDark ? "#ffffff" : "#0a1128",
+                        distance: 150,
+                        enable: true,
+                        opacity: isDark ? 0.15 : 0.1,
+                        width: 1
+                    },
+                    move: { direction: "none", enable: true, outModes: { default: "bounce" }, random: false, speed: 0.6, straight: false },
+                    number: { density: { enable: true, area: 800 }, value: 70 },
+                    opacity: { value: 0.4 },
+                    shape: { type: "circle" },
+                    size: { value: { min: 1, max: 3 } },
+                },
+                detectRetina: true,
+            });
+        }
+
+        // --- LÓGICA DEL TEMA ---
+        function updateAllThemeIcons() {
+            const isDark = document.documentElement.classList.contains('dark');
+
+            // Desktop toggle (original)
+            const dIcon = document.getElementById('theme-toggle-dark-icon');
+            const lIcon = document.getElementById('theme-toggle-light-icon');
+            if (dIcon && lIcon) {
+                if (isDark) { dIcon.classList.add('hidden'); lIcon.classList.remove('hidden'); }
+                else { lIcon.classList.add('hidden'); dIcon.classList.remove('hidden'); }
+            }
+
+            // Mobile toggle (clones)
+            document.querySelectorAll('.dark-icon-clone').forEach(el => isDark ? el.classList.add('hidden') : el.classList.remove('hidden'));
+            document.querySelectorAll('.light-icon-clone').forEach(el => isDark ? el.classList.remove('hidden') : el.classList.add('hidden'));
+        }
+
+        let currentTheme = 'light';
+        if (localStorage.getItem('color-theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+            currentTheme = 'dark';
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        updateAllThemeIcons();
+        loadParticles(currentTheme);
+
+        function toggleThemeGlobal() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+                loadParticles('light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+                loadParticles('dark');
+            }
+            updateAllThemeIcons();
+        }
+
+        // Ligar desktop toggle
+        const dtToggle = document.getElementById('theme-toggle');
+        if (dtToggle) dtToggle.addEventListener('click', toggleThemeGlobal);
+
+        // --- LÓGICA DEL BOTTOM SHEET (MOBILE) ---
+        const openBtn = document.getElementById('open-login-btn');
+        const overlay = document.getElementById('login-overlay');
+        const panel = document.getElementById('login-form-panel');
+
+        function openSheet() {
+            if (!overlay || !panel) return;
+            overlay.classList.remove('pointer-events-none', 'opacity-0');
+            overlay.classList.add('opacity-100');
+            panel.classList.remove('translate-y-full');
+            panel.classList.add('translate-y-0');
+            // Bloquea el scroll de fondo en móvil
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSheet() {
+            if (!overlay || !panel) return;
+            overlay.classList.remove('opacity-100');
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+            panel.classList.remove('translate-y-0');
+            panel.classList.add('translate-y-full');
+            document.body.style.overflow = '';
+        }
+
+        if (openBtn) openBtn.addEventListener('click', openSheet);
+        if (overlay) overlay.addEventListener('click', closeSheet);
+    </script>
+</body>
+
+</html>

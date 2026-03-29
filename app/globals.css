@@ -25,6 +25,14 @@
 
   /* Ghost Borders */
   --color-outline-variant: rgba(255, 255, 255, 0.15);
+
+  /* Loading Dots Animation */
+  --animate-bounce-dots: bounce-dots 1.4s infinite ease-in-out both;
+  
+  @keyframes bounce-dots {
+    0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
+    40% { transform: scale(1); opacity: 1; }
+  }
 }
 
 /* Typography Scales & Global Base */

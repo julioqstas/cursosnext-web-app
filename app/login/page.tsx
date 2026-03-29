@@ -150,9 +150,28 @@ function LoginForm({
       <button
         disabled={pending}
         type="submit"
-        className="w-full py-4 bg-primary hover:bg-primary-variant text-white font-black uppercase tracking-widest rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/35 transition-all active:scale-[0.98] disabled:opacity-50 mt-1"
+        className="w-full h-14 bg-primary hover:bg-primary-variant text-white font-black uppercase tracking-widest rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/35 transition-all active:scale-[0.98] disabled:opacity-80 disabled:cursor-not-allowed mt-1 flex items-center justify-center gap-3 relative overflow-hidden"
       >
-        {pending ? '···' : 'Iniciar Sesión'}
+        {pending ? (
+          <div className="flex gap-1.5 items-center justify-center">
+            <span className="w-2.5 h-2.5 bg-white rounded-full animate-bounce-dots [animation-delay:-0.32s]"></span>
+            <span className="w-2.5 h-2.5 bg-white rounded-full animate-bounce-dots [animation-delay:-0.16s]"></span>
+            <span className="w-2.5 h-2.5 bg-white rounded-full animate-bounce-dots"></span>
+          </div>
+        ) : (
+          <>
+            <span>Iniciar Sesión</span>
+            <svg
+              className="w-5 h-5 -mr-1 opacity-90"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              strokeWidth={2.5}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+            </svg>
+          </>
+        )}
       </button>
     </form>
   )
@@ -189,7 +208,7 @@ export default function LoginPage() {
               className="w-full h-full object-cover object-center"
             />
             {/* Subtle light overlay so text is readable */}
-            <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-white/80" />
+            <div className="absolute inset-0 bg-linear-to-b from-white/20 via-transparent to-white/80" />
           </div>
 
           {/* Logo top-left (over image) */}
@@ -263,60 +282,65 @@ export default function LoginPage() {
 
       {/* ══════════════════════════════════════
           MOBILE LAYOUT (< md)
-          Light background, centered logo, square image
+          Light background, centered logo, square image, 100dvh
       ══════════════════════════════════════ */}
-      <div className="md:hidden min-h-dvh flex flex-col relative overflow-hidden bg-gradient-to-b from-slate-100 to-white">
+      <div className="md:hidden h-[100dvh] flex flex-col relative overflow-hidden bg-linear-to-b from-slate-100 to-white justify-between pb-8">
 
         {/* Subtle background glow orbs */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -translate-y-1/3 translate-x-1/3 blur-3xl pointer-events-none" />
         <div className="absolute bottom-48 left-0 w-48 h-48 bg-isimova-blue/5 rounded-full translate-y-1/2 -translate-x-1/3 blur-3xl pointer-events-none" />
 
-        {/* ── Mobile header: logo CENTERED ── */}
-        <div className="relative z-10 flex justify-center px-6 pt-12 pb-4">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={LOGO_COLOR} alt="ISIMOVA" className="h-9 w-auto object-contain" />
-        </div>
-
-        {/* ── Brand image SQUARE ── */}
-        <div className="relative z-10 px-6 mt-2">
-          <div className="w-full aspect-square rounded-2xl overflow-hidden ring-1 ring-slate-200/60 shadow-lg">
+        <div className="flex-1 flex flex-col justify-center gap-4 pt-4">
+          {/* ── Mobile header: logo CENTERED ── */}
+          <div className="relative z-10 flex justify-center px-6 pt-4 pb-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://isimova.com/landings/v2/img/profesional-diplimado.png?v=2"
-              alt="Profesional ISIMOVA"
-              className="w-full h-full object-cover object-top"
-            />
+            <img src={LOGO_COLOR} alt="ISIMOVA" className="h-[34px] w-auto object-contain" />
+          </div>
+
+          {/* ── Brand image SQUARE & SMALLER ── */}
+          <div className="relative z-10 px-6 flex justify-center">
+            <div className="w-full max-w-[240px] aspect-square rounded-2xl overflow-hidden ring-1 ring-slate-200/60 shadow-lg bg-white">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="https://isimova.com/landings/v2/img/profesional-diplimado.png?v=2"
+                alt="Profesional ISIMOVA"
+                className="w-full h-full object-cover object-top"
+              />
+            </div>
+          </div>
+
+          {/* ── Glassmorphism slideshow card (mobile) ── */}
+          <div className="relative z-10 px-6 flex justify-center mt-2">
+            <div
+              className="w-full max-w-[320px] rounded-2xl p-4 shadow-sm"
+              style={{
+                background: 'rgba(255,255,255,0.85)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+                border: '1px solid rgba(255,255,255,1)',
+              }}
+            >
+              <BrandSlideshow dark={false} />
+            </div>
           </div>
         </div>
 
-        {/* ── Glassmorphism slideshow card (mobile) ── */}
-        <div className="relative z-10 px-6 mt-5 flex-1 flex flex-col justify-center">
-          <div
-            className="w-full rounded-2xl p-5"
-            style={{
-              background: 'rgba(255,255,255,0.78)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
-              border: '1px solid rgba(255,255,255,0.9)',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,1)',
-            }}
-          >
-            <BrandSlideshow dark={false} />
+        {/* ── CTA button ── */}
+        <div className="relative z-10 px-6 pt-4 shrink-0 max-w-[360px] mx-auto w-full">
+          {/* Subtle pulse wrapper effect for protagonism */}
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-primary/30 rounded-xl blur-md opacity-70 group-hover:opacity-100 transition duration-500 animate-[pulse_3s_ease-in-out_infinite]"></div>
+            <button
+              id="open-login-btn"
+              onClick={() => setSheetOpen(true)}
+              className="relative w-full h-14 bg-linear-to-r from-primary to-[#ea580c] hover:brightness-110 text-white font-black uppercase tracking-widest rounded-xl shadow-lg transition-transform active:scale-[0.98] flex items-center justify-between px-6"
+            >
+              <span>Ingresar a mi cuenta</span>
+              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
           </div>
-        </div>
-
-        {/* ── CTA button — NO "ver planes" text ── */}
-        <div className="relative z-10 px-6 pb-10 pt-5">
-          <button
-            id="open-login-btn"
-            onClick={() => setSheetOpen(true)}
-            className="w-full py-4 bg-primary hover:bg-primary-variant text-white font-black uppercase tracking-widest rounded-xl shadow-lg shadow-primary/30 transition-all active:scale-[0.98] flex items-center justify-between px-5"
-          >
-            <span>Ingresar a mi cuenta</span>
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </button>
         </div>
       </div>
 

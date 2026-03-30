@@ -103,21 +103,18 @@ export default async function StudentDashboard() {
           <h1 className="text-3xl font-black text-slate-900 tracking-tight mb-2">Hola de nuevo, {firstName} 👋</h1>
           <p className="text-slate-500 text-[15px]">Un buen día para absorber nuevo conocimiento. ¡Sigue liderando!</p>
         </div>
-        <button className="bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold h-11 px-6 rounded-xl shadow-[0_8px_16px_rgba(0,0,0,0.15)] transition-transform active:scale-95 shrink-0">
-          Explorar Catálogo
-        </button>
       </div>
 
       {/* ── Stats Row ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12 w-full">
         <StatCard title="Diplomados en Curso" value={enrollments?.length ?? 0} icon="📚" color="bg-blue-50 text-blue-600 ring-blue-100" />
-        <StatCard title="Horas Invertidas" value="24.5h" icon="⏱️" color="bg-orange-50 text-primary ring-orange-100" />
-        <StatCard title="Certificados Logrados" value="1" icon="🎓" color="bg-emerald-50 text-emerald-600 ring-emerald-100" />
+        <StatCard title="Horas Invertidas" value="0h" icon="⏱️" color="bg-orange-50 text-primary ring-orange-100" />
+        <StatCard title="Certificados Logrados" value="0" icon="🎓" color="bg-emerald-50 text-emerald-600 ring-emerald-100" />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 w-full">
-        {/* ── Main Column (70%) ── */}
-        <div className="lg:col-span-2 flex flex-col gap-10 w-full">
+      <div className="w-full flex flex-col lg:flex-row gap-10">
+        {/* ── Main Column ── */}
+        <div className="flex-1 flex flex-col gap-10 w-full max-w-5xl">
           
           {mainCourse && (
             <section className="w-full">
@@ -190,45 +187,6 @@ export default async function StudentDashboard() {
                  })}
                </div>
              )}
-          </section>
-        </div>
-
-        {/* ── Right Column (30%) ── */}
-        <div className="w-full flex flex-col gap-6">
-          <section className="bg-white rounded-4xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100/80 w-full">
-            <h2 className="text-lg font-black text-slate-900 mb-6 flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 ring-4 ring-emerald-50 animate-pulse"></span>
-              Clases en Vivo (Zoom)
-            </h2>
-            <div className="flex flex-col gap-5">
-               {/* Event Row */}
-               <div className="flex gap-4 group cursor-pointer">
-                 <div className="w-[52px] h-[60px] rounded-2xl bg-slate-50 border border-slate-100 group-hover:border-primary/20 flex flex-col items-center justify-center shrink-0 transition-colors">
-                   <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">Mar</span>
-                   <span className="text-xl font-black text-slate-900 leading-none">12</span>
-                 </div>
-                 <div className="flex flex-col justify-center">
-                   <h4 className="text-[15px] font-bold text-slate-900 group-hover:text-primary transition-colors">Mentoría de Riesgos</h4>
-                   <p className="text-[13px] font-medium text-slate-500">19:00 - 21:00 (GMT-5)</p>
-                 </div>
-               </div>
-               
-               {/* Event Row */}
-               <div className="flex gap-4 group cursor-pointer opacity-70 hover:opacity-100 transition-opacity">
-                 <div className="w-[52px] h-[60px] rounded-2xl bg-slate-50 border border-slate-100 flex flex-col items-center justify-center shrink-0">
-                   <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider">Jue</span>
-                   <span className="text-xl font-black text-slate-500 leading-none">14</span>
-                 </div>
-                 <div className="flex flex-col justify-center">
-                   <h4 className="text-[15px] font-bold text-slate-500">Networking en Vivo</h4>
-                   <p className="text-[13px] font-medium text-slate-400">20:00 - 21:30 (GMT-5)</p>
-                 </div>
-               </div>
-            </div>
-            
-            <button className="w-full mt-6 py-3 rounded-xl bg-slate-50 text-slate-600 font-bold text-sm hover:bg-slate-100 transition-colors">
-              Ver calendario completo
-            </button>
           </section>
         </div>
       </div>

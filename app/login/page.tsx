@@ -116,21 +116,28 @@ function BrandSlideshow({ dark = false }: { dark?: boolean }) {
   const borderAccent = 'border-primary/40'
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-6">
       <div
+        className="flex flex-col items-start"
         style={{
           opacity: visible ? 1 : 0,
           transform: visible ? 'translateY(0)' : 'translateY(8px)',
           transition: 'opacity 300ms ease, transform 300ms ease',
         }}
       >
-        <p className={`${taglineColor} text-xs font-bold tracking-[0.2em] uppercase mb-2`}>
+        {/* ── Desktop Glow-Icon HUD ── */}
+        <div className="mb-8 w-[120px] h-[120px] rounded-[2.5rem] bg-linear-to-tr from-white/5 to-transparent flex items-center justify-center ring-2 ring-white/10 shadow-[inset_0_2px_20px_rgba(255,255,255,0.03)] relative overflow-hidden shrink-0">
+          <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-full scale-150 animate-pulse mix-blend-screen opacity-50 pointer-events-none" />
+          <slide.icon className="w-14 h-14 text-primary relative z-10 drop-shadow-[0_0_15px_rgba(249,115,22,0.5)]" strokeWidth={2} />
+        </div>
+
+        <p className={`${taglineColor} text-[11px] font-black tracking-[0.2em] uppercase mb-3`}>
           {slide.tagline}
         </p>
-        <h2 className={`${titleColor} text-2xl lg:text-3xl font-black tracking-tight leading-snug mb-3`}>
+        <h2 className={`${titleColor} text-3xl font-black tracking-tight leading-snug mb-4`}>
           {slide.title}
         </h2>
-        <p className={`${descColor} text-sm leading-relaxed border-l-2 ${borderAccent} pl-3`}>
+        <p className={`${descColor} text-[15px] leading-relaxed border-l-[3px] ${borderAccent} pl-4`}>
           {slide.desc}
         </p>
       </div>
@@ -323,9 +330,9 @@ export default function LoginPage() {
 
           {/* ── Glassmorphism slideshow card ── */}
           {/* We make the glassmorphism dark to contrast perfectly with the deep blue background */}
-          <div className="relative z-10 flex-1 flex items-end pb-16 px-10 pointer-events-none">
+          <div className="relative z-10 flex-1 flex items-center justify-center px-8 lg:px-16 pointer-events-none">
             <div
-              className="w-full rounded-2xl p-6 pointer-events-auto"
+              className="w-full max-w-[500px] rounded-3xl p-8 lg:p-10 pointer-events-auto"
               style={{
                 background: 'rgba(45, 66, 133, 0.45)', // isimova-blue with opacity
                 backdropFilter: 'blur(24px)',

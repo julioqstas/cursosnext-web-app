@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
+import { BookOpen, Clock, Award } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 
 export default async function StudentDashboard() {
@@ -100,16 +101,16 @@ export default async function StudentDashboard() {
       {/* ── Welcome Header ── */}
       <div className="flex flex-col md:flex-row gap-6 justify-between md:items-end mb-10 w-full">
         <div>
-          <h1 className="text-3xl font-black text-isimova-blue tracking-tight mb-2">Hola de nuevo, {firstName} 👋</h1>
+          <h1 className="text-3xl font-black text-isimova-blue tracking-tight mb-2">Hola de nuevo, <span className="text-primary drop-shadow-[0_2px_10px_rgba(242,140,56,0.3)]">{firstName}</span> 👋</h1>
           <p className="text-slate-500 text-[15px]">Un buen día para absorber nuevo conocimiento. ¡Sigue liderando!</p>
         </div>
       </div>
 
-      {/* ── Stats Row ── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12 w-full">
-        <StatCard title="Diplomados en Curso" value={enrollments?.length ?? 0} icon="📚" color="bg-blue-50 text-blue-600 ring-blue-100" />
-        <StatCard title="Horas Invertidas" value="0h" icon="⏱️" color="bg-orange-50 text-primary ring-orange-100" />
-        <StatCard title="Certificados Logrados" value="0" icon="🎓" color="bg-emerald-50 text-emerald-600 ring-emerald-100" />
+      {/* ── Stats Row (Mobile Carousel / Desktop Grid) ── */}
+      <div className="flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide -mx-6 px-6 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-12 w-[calc(100%+3rem)] lg:w-full">
+        <StatCard title="Diplomados en Curso" value={enrollments?.length ?? 0} icon={<BookOpen strokeWidth={2.5} className="w-[22px] h-[22px]" />} color="bg-primary/10 text-primary ring-primary/20" />
+        <StatCard title="Horas Invertidas" value="0h" icon={<Clock strokeWidth={2.5} className="w-[22px] h-[22px]" />} color="bg-primary/10 text-primary ring-primary/20" />
+        <StatCard title="Certificados Logrados" value="0" icon={<Award strokeWidth={2.5} className="w-[22px] h-[22px]" />} color="bg-primary/10 text-primary ring-primary/20" />
       </div>
 
       <div className="w-full flex flex-col lg:flex-row gap-10">
@@ -151,13 +152,13 @@ export default async function StudentDashboard() {
 
 function StatCard({ title, value, icon, color }: any) {
   return (
-    <div className="bg-white rounded-4xl p-6 flex flex-col gap-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100/80 transition-all hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1">
-       <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-xl ring-4 ${color}`}>
+    <div className="min-w-[150px] aspect-[4/3] lg:aspect-auto lg:min-h-[140px] bg-white rounded-3xl lg:rounded-4xl p-5 lg:p-6 flex flex-col shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100/80 transition-all hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:-translate-y-1 snap-center shrink-0">
+       <div className={`w-11 h-11 lg:w-12 lg:h-12 rounded-2xl flex items-center justify-center ring-4 shrink-0 mb-auto ${color}`}>
          {icon}
        </div>
-       <div>
-         <p className="text-[13px] font-bold text-slate-500 mb-1">{title}</p>
-         <p className="text-3xl font-black text-isimova-blue tracking-tight">{value}</p>
+       <div className="mt-4 lg:mt-6">
+         <p className="text-[12px] lg:text-[13px] font-bold text-slate-500 mb-0.5 lg:mb-1 leading-tight">{title}</p>
+         <p className="text-2xl lg:text-3xl font-black text-isimova-blue tracking-tight">{value}</p>
        </div>
     </div>
   )

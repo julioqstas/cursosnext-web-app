@@ -103,75 +103,91 @@ export default async function LessonPage({ params }: PageProps) {
   }))
 
   const markComplete = markLessonCompleteAction.bind(null, lessonId, courseId)
+  const progressPercent = allLessons.length > 0 ? Math.round((completedIds.size / allLessons.length) * 100) : 0
 
   return (
-    <div className="min-h-dvh bg-surface flex flex-col font-sans antialiased text-on-surface">
+    <div className="min-h-dvh bg-slate-50 flex flex-col font-sans antialiased text-slate-900 selection:bg-primary/20">
       {/* Top nav */}
-      <header className="bg-surface/80 backdrop-blur-md h-20 flex items-center px-4 sm:px-8 gap-4 sticky top-0 z-50">
-        <Link href="/dashboard" className="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2 group">
-          <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
-          </svg>
-          <span className="text-sm font-bold tracking-wide hidden sm:inline">VOLVER</span>
+      <header className="bg-white/90 backdrop-blur-xl h-20 border-b border-slate-200/60 flex items-center px-6 sm:px-10 gap-6 sticky top-0 z-50">
+        <Link href="/dashboard" className="text-slate-500 hover:text-primary transition-colors flex items-center gap-3 group shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-slate-100 group-hover:bg-primary/10 flex items-center justify-center transition-colors">
+             <svg className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+             </svg>
+          </div>
+          <span className="text-sm font-black uppercase tracking-widest hidden sm:inline">Volver</span>
         </Link>
-        <div className="h-6 w-px bg-white/10 mx-2"></div>
+        <div className="h-8 w-px bg-slate-200 hidden sm:block"></div>
         <div className="flex-1 min-w-0 flex items-center gap-3">
-          <span className="text-white font-bold tracking-wide">{course.title}</span>
+          <span className="text-[15px] font-black text-slate-900 truncate tracking-tight">{course.title}</span>
+        </div>
+        <div className="hidden sm:flex items-center gap-4 bg-slate-100 px-4 py-2 rounded-2xl shrink-0">
+          <span className="text-[11px] font-black tracking-widest uppercase text-slate-500">Progreso</span>
+          <span className="text-primary font-black text-sm">{progressPercent}%</span>
         </div>
       </header>
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-[1400px] w-full mx-auto px-4 md:px-8 py-8 flex flex-col lg:flex-row gap-10 items-start">
+      <main className="flex-1 max-w-[1500px] w-full mx-auto px-6 md:px-10 py-10 flex flex-col xl:flex-row gap-12 items-start">
         
         {/* Left: Video + Content (approx 65-70%) */}
         <div className="flex-1 min-w-0 w-full">
           {/* Video Container */}
-          <div className="rounded-3xl overflow-hidden bg-surface-container-lowest shadow-[0_30px_60px_-15px_rgba(0,0,0,0.8)] mb-10 relative">
+          <div className="rounded-[2.5rem] overflow-hidden bg-slate-900 shadow-[0_20px_50px_rgba(0,0,0,0.1)] mb-12 relative flex items-center justify-center min-h-[50vh] xl:min-h-0 xl:aspect-video w-full group">
             {currentLesson.youtube_id ? (
               <YouTubePlayer youtubeId={currentLesson.youtube_id} title={currentLesson.title} />
             ) : (
-              <div className="aspect-video flex items-center justify-center text-on-surface-variant font-light bg-surface-container-low">Video no disponible</div>
+              <div className="aspect-video w-full flex flex-col gap-4 items-center justify-center text-slate-400 font-light bg-slate-900">
+                 <svg className="w-16 h-16 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                 <span>Video no disponible</span>
+              </div>
             )}
-            
-            {/* Ambient glow around video frame purely for esthetics layer */}
-            <div className="absolute inset-0 pointer-events-none rounded-3xl ring-1 ring-inset ring-white/5"></div>
+            {/* Ambient subtle glow ring */}
+            <div className="absolute inset-0 pointer-events-none rounded-[2.5rem] ring-1 ring-inset ring-white/10"></div>
           </div>
 
           {/* Lesson Metadata & Content */}
-          <div className="mb-12 lg:pr-8">
-            <div className="flex items-center gap-3 text-xs font-bold text-primary tracking-widest mb-4 uppercase">
-              <span>MÓDULO {groupedModules.findIndex((m: any) => m.id === currentLesson.module_id) + 1}</span>
-              <span className="text-white/20">•</span>
-              <span className="text-on-surface-variant font-medium tracking-normal text-sm">Lección {currentLesson.order_index} de {allLessons.length}</span>
+          <div className="mb-16 xl:max-w-4xl">
+            <div className="flex flex-wrap items-center gap-3 text-[11px] font-black tracking-widest uppercase mb-6">
+              <span className="bg-primary/10 text-primary px-3 py-1.5 rounded-full ring-1 ring-primary/20">Módulo {groupedModules.findIndex((m: any) => m.id === currentLesson.module_id) + 1}</span>
+              <span className="text-slate-300">•</span>
+              <span className="text-slate-500 bg-white px-3 py-1.5 rounded-full shadow-sm ring-1 ring-slate-100">Lección {currentLesson.order_index} de {allLessons.length}</span>
             </div>
             
-            <h1 className="text-4xl md:text-5xl font-extrabold text-on-surface mb-8 tracking-tight leading-tight">{currentLesson.title}</h1>
+            <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-10 tracking-tight leading-[1.15]">{currentLesson.title}</h1>
 
             {/* Formatted HTML Text */}
-            <div className="w-full text-on-surface-variant leading-relaxed text-lg prose prose-invert prose-p:text-on-surface-variant prose-headings:text-on-surface prose-a:text-primary max-w-none [&_p]:mb-5 **:break-normal!">
+            <div className="w-full text-slate-600 leading-relaxed text-lg prose prose-slate prose-headings:text-slate-900 prose-headings:font-black prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:font-black prose-p:mb-6 max-w-none **:break-normal!">
               {currentLesson.content_md ? (
                 <div 
                   className="w-full whitespace-pre-wrap [&_p]:whitespace-normal"
                   dangerouslySetInnerHTML={{ __html: currentLesson.content_md.replace(/<p>(\s|&nbsp;|\u00A0)*<\/p>/g, '<p><br></p>').replace(/&nbsp;/g, ' ').replace(/\u00A0/g, ' ') }} 
                 />
               ) : (
-                <p className="italic text-on-surface-variant/50 font-light">Sin material complementario de lectura para esta lección.</p>
+                <div className="bg-white p-6 rounded-3xl ring-1 ring-slate-100 shadow-sm inline-block">
+                  <p className="italic font-medium m-0 flex items-center gap-3 text-slate-500">
+                     <svg className="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                     Sin material complementario de lectura para esta lección.
+                  </p>
+                </div>
               )}
             </div>
             
             {/* Instructor / Key Takeaways block */}
             {(course.instructor_name || course.instructor_bio) && (
-              <div className="flex flex-col sm:flex-row items-center sm:items-start bg-surface-container-low rounded-3xl p-6 sm:p-8 mt-12 gap-5 shadow-2xl shadow-black/20 ring-1 ring-white/5">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start bg-white rounded-4xl p-8 mt-16 gap-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 relative overflow-hidden group">
+                <div className="absolute top-0 left-0 w-2 h-full bg-linear-to-b from-primary to-primary-variant group-hover:w-full transition-all duration-700 opacity-[0.03] pointer-events-none"></div>
                 {course.instructor_avatar_url ? (
-                  <img src={course.instructor_avatar_url} alt={course.instructor_name || 'Docente'} className="w-20 h-20 rounded-full shrink-0 object-cover ring-2 ring-primary/20 bg-surface shadow-md" />
+                  <img src={course.instructor_avatar_url} alt={course.instructor_name || 'Docente'} className="w-24 h-24 rounded-full shrink-0 object-cover ring-4 ring-primary/10 shadow-xl" />
                 ) : (
-                  <div className="w-20 h-20 rounded-full shrink-0 bg-primary/20 text-primary flex items-center justify-center font-bold text-3xl shadow-[inset_0_0_15px_rgba(249,115,22,0.2)]">
+                  <div className="w-24 h-24 rounded-full shrink-0 bg-slate-50 text-slate-400 flex items-center justify-center font-black text-4xl ring-1 ring-slate-200 shadow-inner">
                     {(course.instructor_name || course.title).charAt(0).toUpperCase()}
                   </div>
                 )}
-                <div className="flex-1 min-w-0 text-center sm:text-left">
-                  <p className="text-on-surface font-extrabold text-lg sm:text-xl tracking-wide">{course.instructor_name || 'Instructor del Curso'}</p>
-                  <p className="text-on-surface-variant text-sm sm:text-base font-medium leading-relaxed mt-2">{course.instructor_bio || 'ISIMOVA Academy'}</p>
+                <div className="flex-1 min-w-0 text-center sm:text-left pt-2">
+                  <span className="text-[10px] font-black tracking-widest uppercase text-primary mb-2 block">Instructor del Curso</span>
+                  <p className="text-slate-900 font-black text-2xl tracking-tight mb-2">{course.instructor_name}</p>
+                  <p className="text-slate-500 text-[15px] font-medium leading-relaxed">{course.instructor_bio}</p>
                 </div>
               </div>
             )}
@@ -179,69 +195,42 @@ export default async function LessonPage({ params }: PageProps) {
         </div>
 
         {/* Right: Sidebar Cards (approx 30-35%) */}
-        <aside className="w-full lg:w-[400px] shrink-0 flex flex-col gap-6 sticky top-28">
+        <aside className="w-full xl:w-[420px] shrink-0 flex flex-col gap-8 xl:sticky xl:top-[120px]">
           
-          {/* Progress Card */}
-          <div className="bg-surface-container-low rounded-3xl p-8 shadow-2xl shadow-black/40">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-on-surface text-sm font-bold tracking-widest uppercase">Tu Progreso</h3>
-              <span className="text-primary font-bold text-xl">{allLessons.length > 0 ? Math.round((completedIds.size / allLessons.length) * 100) : 0}%</span>
-            </div>
-            
-            <div className="flex justify-between text-xs text-on-surface-variant font-medium mb-3">
-              <span>{completedIds.size} completadas</span>
-              <span>{allLessons.length - completedIds.size} restantes</span>
-            </div>
-            
-            <div className="w-full bg-surface-container-highest rounded-full h-2.5 overflow-hidden">
-              <div 
-                className="bg-linear-to-r from-primary to-primary-variant h-full rounded-full transition-all duration-1000 ease-out shadow-[0_0_12px_rgba(249,115,22,0.6)] relative" 
-                style={{ width: `${allLessons.length > 0 ? (completedIds.size / allLessons.length) * 100 : 0}%` }}
-              >
-                <div className="absolute top-0 right-0 bottom-0 w-2 bg-white/40 blur-[2px] rounded-full"></div>
-              </div>
-            </div>
+          {/* Lesson Completion Action Card */}
+          <div className="bg-white rounded-[2rem] p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 flex items-center gap-6">
+             <div className="flex-1">
+                <h3 className="text-slate-900 font-black text-[15px] mb-1">Estado de Lección</h3>
+                <p className="text-slate-500 text-xs font-medium">Confirma tu avance grupal</p>
+             </div>
+             
+             <div className="shrink-0 w-1/2">
+                {!isCompleted ? (
+                  <form action={markComplete} className="w-full">
+                    <button type="submit" 
+                      className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm h-12 rounded-xl shadow-lg shadow-slate-900/20 transition-all hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2">
+                      <svg className="w-5 h-5 text-white/50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                      Marcar Lista
+                    </button>
+                  </form>
+                ) : (
+                  <div className="w-full bg-emerald-50 border border-emerald-100 text-emerald-600 font-bold text-sm h-12 rounded-xl flex items-center justify-center gap-2">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+                    Completada
+                  </div>
+                )}
+             </div>
           </div>
 
-          {/* Syllabus Card */}
-          <div className="bg-surface-container-low rounded-3xl shadow-2xl shadow-black/40 flex flex-col overflow-hidden lg:max-h-[60vh]">
-            <div className="p-6 pb-4 flex justify-between items-center bg-surface-container-low z-10">
-              <h3 className="text-on-surface text-sm font-bold tracking-widest uppercase">Contenido del Curso</h3>
-              <svg className="w-5 h-5 text-on-surface-variant" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7-7-7-7" />
-              </svg>
-            </div>
-            
-            <div className="flex-1 overflow-y-auto custom-scrollbar px-2 pb-2">
-              <LessonAccordion courseId={courseId} modules={groupedModules} />
-            </div>
+          {/* Syllabus Accordion Wrapper */}
+          <div className="flex flex-col gap-4">
+             <div className="flex items-center justify-between px-2">
+                <h3 className="text-slate-900 text-sm font-black tracking-widest uppercase">Temario</h3>
+                <span className="text-slate-400 text-xs font-bold">{allLessons.length} lecciones</span>
+             </div>
+             {/* Note: LessonAccordion itself was made visually appealing with white cards */}
+             <LessonAccordion courseId={courseId} modules={groupedModules} />
           </div>
-
-          {/* Complete Button */}
-          {!isCompleted && (
-            <form action={markComplete} className="mt-2">
-              <button type="submit" 
-                className="w-full bg-linear-to-r from-primary to-primary-variant hover:to-primary-fixed-variant text-white font-bold text-sm py-5 px-6 rounded-2xl shadow-[0_8px_20px_-6px_rgba(249,115,22,0.5)] transition-all hover:-translate-y-1 active:scale-[0.98] uppercase tracking-widest flex items-center justify-between">
-                <span>Completar Lección</span>
-                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-sm">
-                  <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-              </button>
-            </form>
-          )}
-          
-          {isCompleted && (
-            <div className="w-full bg-emerald-500/10 text-emerald-400 font-bold text-sm py-5 px-6 rounded-2xl flex items-center justify-center gap-3 uppercase tracking-widest shadow-[inset_0_0_20px_rgba(16,185,129,0.1)] mt-2">
-              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <span className="mt-0.5">Lección Completada</span>
-            </div>
-          )}
 
         </aside>
       </main>

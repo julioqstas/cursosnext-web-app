@@ -30,30 +30,30 @@ export default function LessonAccordion({ courseId, modules }: LessonAccordionPr
   const [openModuleId, setOpenModuleId] = useState<string | null>(defaultOpen ?? null)
 
   return (
-    <div className="flex flex-col gap-3 p-2">
+    <div className="flex flex-col gap-3">
       {modules.map((mod) => {
         const isOpen = openModuleId === mod.id
         const completedCount = mod.lessons.filter((l) => l.completed).length
 
         return (
-          <div key={mod.id} className="bg-surface-container-highest/40 rounded-2xl overflow-hidden transition-all duration-300">
+          <div key={mod.id} className="bg-white border border-slate-100 rounded-3xl overflow-hidden transition-all duration-300 shadow-[0_4px_20px_rgb(0,0,0,0.02)]">
             {/* Module header */}
             <button
               onClick={() => setOpenModuleId(isOpen ? null : mod.id)}
               className={`w-full text-left px-5 py-4 flex items-center justify-between transition-colors ${
-                isOpen ? 'bg-surface-container-highest' : 'hover:bg-surface-container-highest/80'
+                isOpen ? 'bg-slate-50/80' : 'hover:bg-slate-50'
               }`}
             >
               <div className="flex-1 min-w-0 pr-4">
-                <p className="text-on-surface text-sm font-bold tracking-wide truncate">{mod.title}</p>
-                <p className="text-on-surface-variant text-xs mt-1 font-medium">
+                <p className="text-slate-900 text-[15px] font-black tracking-tight truncate">{mod.title}</p>
+                <p className="text-slate-500 text-[13px] mt-0.5 font-bold tracking-wide uppercase">
                   {completedCount}/{mod.lessons.length} completadas
                 </p>
               </div>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors ${isOpen ? 'bg-white/10' : 'bg-transparent'}`}>
+              <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition-colors ${isOpen ? 'bg-white shadow-sm ring-1 ring-slate-200/50' : 'bg-transparent'}`}>
                 <svg
-                  className={`w-4 h-4 text-on-surface-variant transition-transform duration-300 ${
-                    isOpen ? 'rotate-180 text-white' : ''
+                  className={`w-4 h-4 text-slate-500 transition-transform duration-300 ${
+                    isOpen ? 'rotate-180 text-primary' : ''
                   }`}
                   fill="none" viewBox="0 0 24 24" stroke="currentColor"
                 >
@@ -64,19 +64,19 @@ export default function LessonAccordion({ courseId, modules }: LessonAccordionPr
 
             {/* Lessons list */}
             {isOpen && (
-              <ul className="bg-surface/30">
+              <ul className="bg-white border-t border-slate-100">
                 {mod.lessons.map((lesson) => {
                   if (!lesson.unlocked) {
                     return (
                       <li
                         key={lesson.id}
-                        className="flex items-center gap-4 px-5 py-3.5 opacity-50 pointer-events-none select-none"
+                        className="flex items-center gap-4 px-5 py-3.5 opacity-40 pointer-events-none select-none bg-slate-50/50"
                       >
-                        <svg className="w-5 h-5 text-on-surface-variant shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                        <svg className="w-5 h-5 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5}
                             d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                         </svg>
-                        <span className="text-on-surface-variant text-sm truncate font-medium">{lesson.title}</span>
+                        <span className="text-slate-500 text-[14px] truncate font-bold">{lesson.title}</span>
                       </li>
                     )
                   }
@@ -87,22 +87,22 @@ export default function LessonAccordion({ courseId, modules }: LessonAccordionPr
                         href={`/cursos/${courseId}/leccion/${lesson.id}`}
                         className={`group flex items-center gap-4 px-5 py-3.5 transition-all
                           ${lesson.isCurrent
-                            ? 'bg-primary/10 border-l-2 border-primary shadow-[inset_0_0_20px_rgba(249,115,22,0.05)]'
-                            : 'hover:bg-surface-container-highest/50 border-l-2 border-transparent'
+                            ? 'bg-primary/5 border-l-[3px] border-primary shadow-[inset_0_0_20px_rgba(249,115,22,0.02)]'
+                            : 'hover:bg-slate-50 border-l-[3px] border-transparent'
                           }`}
                       >
                         {lesson.completed ? (
-                          <div className="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center shrink-0">
-                            <svg className="w-3.5 h-3.5 text-emerald-400" fill="currentColor" viewBox="0 0 20 20">
+                          <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 ring-4 ring-emerald-50">
+                            <svg className="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20">
                               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                             </svg>
                           </div>
                         ) : (
-                          <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 border-2 ${lesson.isCurrent ? 'border-primary' : 'border-on-surface-variant/40 group-hover:border-primary/50 transition-colors'}`}>
-                            {lesson.isCurrent && <div className="w-2 h-2 rounded-full bg-primary" />}
+                          <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 border-[2.5px] ${lesson.isCurrent ? 'border-primary ring-4 ring-primary/10' : 'border-slate-300 group-hover:border-primary/50 transition-all font-black text-slate-400'}`}>
+                            {lesson.isCurrent ? <div className="w-2.5 h-2.5 rounded-full bg-primary" /> : <span className="text-[10px]">&nbsp;</span>}
                           </div>
                         )}
-                        <span className={`text-sm truncate transition-colors ${lesson.isCurrent ? 'text-primary font-bold tracking-wide' : 'text-on-surface-variant font-medium group-hover:text-on-surface'}`}>
+                        <span className={`text-[14px] truncate transition-colors ${lesson.isCurrent ? 'text-slate-900 font-black tracking-tight' : 'text-slate-600 font-bold group-hover:text-slate-900'}`}>
                           {lesson.title}
                         </span>
                       </Link>

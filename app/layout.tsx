@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -10,6 +10,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "ISIMOVA Academy",
   description: "Plataforma de aprendizaje en línea — ISIMOVA Academy",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#2D4285",
 };
 
 export default function RootLayout({

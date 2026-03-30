@@ -6,6 +6,7 @@ import type { LessonWithModule } from '@/lib/drip'
 import { markLessonCompleteAction } from '@/app/actions/progress'
 import YouTubePlayer from '@/app/components/YouTubePlayer'
 import LessonAccordion from '@/app/components/LessonAccordion'
+import LessonMobileDock from '@/app/components/LessonMobileDock'
 
 interface PageProps {
   params: Promise<{ courseId: string; lessonId: string }>
@@ -105,6 +106,11 @@ export default async function LessonPage({ params }: PageProps) {
   const markComplete = markLessonCompleteAction.bind(null, lessonId, courseId)
   const progressPercent = allLessons.length > 0 ? Math.round((completedIds.size / allLessons.length) * 100) : 0
 
+  // Compute prev/next lesson IDs for mobile dock
+  const currentIdx = allLessons.findIndex((l) => l.id === lessonId)
+  const prevLessonId = currentIdx > 0 ? allLessons[currentIdx - 1].id : null
+  const nextLessonId = currentIdx < allLessons.length - 1 ? allLessons[currentIdx + 1].id : null
+
   return (
     <div className="min-h-dvh bg-slate-50 flex flex-col font-sans antialiased text-slate-900 selection:bg-primary/20">
       {/* Top nav */}
@@ -128,7 +134,7 @@ export default async function LessonPage({ params }: PageProps) {
       </header>
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-[1500px] w-full mx-auto px-6 md:px-10 py-10 flex flex-col xl:flex-row gap-12 items-start">
+      <main className="flex-1 max-w-[1500px] w-full mx-auto px-4 md:px-10 py-6 md:py-10 pb-[100px] lg:pb-10 flex flex-col xl:flex-row gap-12 items-start">
         
         {/* Left: Video + Content (approx 65-70%) */}
         <div className="flex-1 min-w-0 w-full flex flex-col items-center xl:items-start">
@@ -194,8 +200,8 @@ export default async function LessonPage({ params }: PageProps) {
           </div>
         </div>
 
-        {/* Right: Sidebar Cards (approx 30-35%) */}
-        <aside className="w-full xl:w-[420px] shrink-0 flex flex-col gap-8 xl:sticky xl:top-[120px]">
+        {/* Right: Sidebar Cards — hide on mobile, shown on xl only */}
+        <aside className="hidden xl:flex w-full xl:w-[420px] shrink-0 flex-col gap-8 xl:sticky xl:top-[120px]">
           
           {/* Lesson Completion Action Card */}
           <div className="bg-white rounded-[2rem] p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 flex items-center gap-6">
@@ -234,6 +240,14 @@ export default async function LessonPage({ params }: PageProps) {
 
         </aside>
       </main>
+
+      {/* Mobile Lesson Dock */}
+      <LessonMobileDock
+        courseId={courseId}
+        prevLessonId={prevLessonId}
+        nextLessonId={nextLessonId}
+        modules={groupedModules}
+      />
     </div>
   )
 }

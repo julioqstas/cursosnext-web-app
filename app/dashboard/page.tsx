@@ -116,52 +116,7 @@ export default async function StudentDashboard() {
         {/* ── Main Column ── */}
         <div className="flex-1 flex flex-col gap-10 w-full max-w-5xl">
           
-          {mainCourse && (
-            <section className="w-full">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-black text-slate-900">Seguir Viendo</h2>
-                <Link href="/dashboard/cursos" className="text-sm font-bold text-primary hover:text-orange-600 transition-colors">
-                  Ir a mis cursos
-                </Link>
-              </div>
-              
-              {/* Continue Watching Card (Hero) */}
-              <Link href={mainCourseTargetUrl} className="w-full bg-white rounded-4xl p-3 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100/80 flex flex-col sm:flex-row gap-6 relative overflow-hidden group cursor-pointer transition-shadow hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)]">
-                {/* Thumbnail */}
-                <div className="w-full sm:w-64 aspect-video sm:aspect-auto sm:h-[180px] rounded-3xl bg-slate-100 overflow-hidden relative shrink-0">
-                  {mainCourse?.image_url ? (
-                    <img src={mainCourse.image_url} className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out" alt="Cover" />
-                  ) : (
-                    <div className="w-full h-full bg-slate-100 flex items-center justify-center">
-                      <svg className="w-12 h-12 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-slate-900/30 transition-colors flex items-center justify-center">
-                    <div className="w-14 h-14 bg-white/95 text-primary rounded-full flex items-center justify-center shadow-xl scale-95 group-hover:scale-105 transition-transform backdrop-blur-md">
-                       <svg className="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4l12 6-12 6z"/></svg>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Info Block */}
-                <div className="flex flex-col justify-center flex-1 py-3 pr-6">
-                  <span className="text-[10px] font-black tracking-[0.2em] text-primary uppercase mb-3 line-clamp-1">{mainCourse.title}</span>
-                  <h3 className="text-xl font-black text-slate-900 leading-tight mb-2 line-clamp-2">Continuar con tu aprendizaje</h3>
-                  <p className="text-sm font-medium text-slate-500 mb-6">Continúa aprendiendo a tu propio ritmo</p>
-                  
-                  <div className="flex items-center justify-between text-[11px] font-black uppercase text-slate-400 mb-2 tracking-widest">
-                    <span>Progreso Global</span>
-                    <span className="text-primary">{courseProgressMap[mainCourse.id] ?? 0}%</span>
-                  </div>
-                  <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden shadow-inner relative">
-                    <div className="bg-linear-to-r from-primary to-primary-variant h-full rounded-full transition-all duration-1000 relative" style={{ width: `${courseProgressMap[mainCourse.id] ?? 0}%` }}>
-                       <div className="absolute inset-0 bg-white/20 w-full h-full animate-[pulse_2s_ease-in-out_infinite]"></div>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            </section>
-          )}
+          {/* mainCourse && ( Continue Watching Block Hidden ) */}
 
           {/* Quick Courses Row */}
           <section className="w-full">

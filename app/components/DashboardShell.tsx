@@ -107,7 +107,7 @@ export default function DashboardShell({ children, userInitial, userName, userRo
       <main className="flex-1 flex flex-col h-full relative z-10 min-w-0">
         
         {/* Topbar flotante */}
-        <header className="h-[76px] shrink-0 flex items-center justify-between px-5 sm:px-8 bg-white/70 backdrop-blur-xl border-b border-slate-200/60 sticky top-0 z-30 w-full relative">
+        <header className="h-[76px] shrink-0 flex items-center justify-between px-5 sm:px-8 bg-white/70 backdrop-blur-xl border-b border-slate-200/60 sticky top-0 z-30 w-full">
           
           {/* Mobile menu (Hamburger) */}
           <button onClick={() => setIsMobileOpen(true)} className="lg:hidden p-2 -ml-2 text-slate-600 hover:text-slate-900 bg-slate-100/50 hover:bg-slate-100 rounded-xl transition-colors active:scale-95 shrink-0 relative z-20">

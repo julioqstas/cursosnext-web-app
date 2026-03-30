@@ -10,8 +10,8 @@ export default function ComingSoonModule({ title, description, iconPath }: { tit
         <div className="absolute top-0 inset-x-0 h-32 bg-linear-to-b from-primary/5 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-1000 -z-10"></div>
         
         {/* Icon Container with pulse animation */}
-        <div className="w-24 h-24 mx-auto bg-slate-50 rounded-[2rem] flex items-center justify-center mb-8 ring-4 ring-white shadow-xl shadow-slate-200/50 relative">
-          <div className="absolute inset-0 bg-primary/10 rounded-[2rem] animate-[ping_3s_ease-in-out_infinite] opacity-50"></div>
+        <div className="w-24 h-24 mx-auto bg-slate-50 rounded-4xl flex items-center justify-center mb-8 ring-4 ring-white shadow-xl shadow-slate-200/50 relative">
+          <div className="absolute inset-0 bg-primary/10 rounded-4xl animate-[ping_3s_ease-in-out_infinite] opacity-50"></div>
           <svg className="w-10 h-10 text-primary relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={iconPath} />
           </svg>

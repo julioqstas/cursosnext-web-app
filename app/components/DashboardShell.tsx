@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { logoutAction } from '@/app/actions/auth'
 import MobileDock from '@/app/components/MobileDock'
-import { User, LogOut } from 'lucide-react'
+import { User, LogOut, BellOff } from 'lucide-react'
 
 interface DashboardShellProps {
   children: React.ReactNode
@@ -16,23 +16,29 @@ interface DashboardShellProps {
 
 export default function DashboardShell({ children, userInitial, userName, userRole }: DashboardShellProps) {
   const [userMenuOpen, setUserMenuOpen] = useState(false)
+  const [notifMenuOpen, setNotifMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
+  const notifRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
 
-  // Close menu on outside click
+  // Close menus on outside click
   useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
         setUserMenuOpen(false)
+      }
+      if (notifRef.current && !notifRef.current.contains(e.target as Node)) {
+        setNotifMenuOpen(false)
       }
     }
     document.addEventListener('mousedown', handleClick)
     return () => document.removeEventListener('mousedown', handleClick)
   }, [])
 
-  // Close menu on route change
+  // Close menus on route change
   useEffect(() => {
     setUserMenuOpen(false)
+    setNotifMenuOpen(false)
   }, [pathname])
 
   const navLinks = [
@@ -84,10 +90,10 @@ export default function DashboardShell({ children, userInitial, userName, userRo
           })}
         </nav>
         
-        {/* User Mini Profile & Settings */}
+        {/* User Mini Profile — Desktop sidebar bottom (simplified, no logout) */}
         <div className="px-5 pb-8 mt-auto flex flex-col gap-2 shrink-0">
           <Link href="/dashboard/perfil" className={`flex items-center gap-4 w-full p-4 rounded-[1.25rem] transition-all text-left group border ${pathname === '/dashboard/perfil' ? 'bg-primary/20 border-transparent shadow-[inset_0_0_20px_rgba(242,140,56,0.05)]' : 'hover:bg-slate-50 border-transparent hover:border-slate-100'}`}>
-            <div className={`w-11 h-11 rounded-2xl shrink-0 overflow-hidden flex items-center justify-center font-black text-xl ring-2 transition-all shadow-sm ${pathname === '/dashboard/perfil' ? 'bg-primary text-white ring-primary/30' : 'bg-slate-100 text-slate-500 ring-transparent group-hover:ring-primary/20'}`}>
+            <div className={`w-11 h-11 rounded-2xl shrink-0 overflow-hidden flex items-center justify-center font-black text-xl ring-2 transition-all shadow-sm ${pathname === '/dashboard/perfil' ? 'bg-primary text-white ring-primary/30' : 'bg-primary/10 text-primary ring-transparent group-hover:ring-primary/20'}`}>
                {userInitial}
             </div>
             <div className="flex-1 min-w-0">
@@ -95,13 +101,6 @@ export default function DashboardShell({ children, userInitial, userName, userRo
               <p className={`text-[12px] font-bold uppercase tracking-wider truncate ${pathname === '/dashboard/perfil' ? 'text-isimova-blue/80' : 'text-slate-500'}`}>{userRole}</p>
             </div>
           </Link>
-
-          <form action={logoutAction} className="w-full">
-            <button type="submit" className="flex items-center justify-center gap-3 w-full px-4 py-4 rounded-[1.25rem] text-slate-500 hover:text-red-600 hover:bg-red-50 hover:border-red-100 border border-transparent font-black tracking-wide text-[14px] transition-colors group relative overflow-hidden">
-               <svg className="w-5 h-5 shrink-0 text-slate-400 group-hover:text-red-500 transition-colors relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
-               <span className="relative z-10">Cerrar Sesión</span>
-            </button>
-          </form>
         </div>
       </aside>
 
@@ -132,16 +131,44 @@ export default function DashboardShell({ children, userInitial, userName, userRo
 
           {/* RIGHT: Notifications + User Avatar */}
           <div className="flex items-center gap-3 shrink-0">
-            {/* Notifications */}
-            <button className="relative p-2.5 text-slate-500 hover:text-isimova-blue hover:bg-slate-100 bg-slate-50 rounded-xl transition-colors ring-1 ring-slate-200/60 shadow-sm active:scale-95">
-              <svg className="w-[22px] h-[22px]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-              <span className="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-red-500 ring-[3px] ring-white shadow-sm"></span>
-            </button>
-
-            {/* User Avatar + Dropdown (Mobile only) */}
-            <div className="lg:hidden relative" ref={menuRef}>
+            {/* ── Notifications dropdown ── */}
+            <div className="relative" ref={notifRef}>
               <button
-                onClick={() => setUserMenuOpen(prev => !prev)}
+                onClick={() => { setNotifMenuOpen(prev => !prev); setUserMenuOpen(false) }}
+                className="relative p-2.5 text-slate-500 hover:text-isimova-blue hover:bg-slate-100 bg-slate-50 rounded-xl transition-colors ring-1 ring-slate-200/60 shadow-sm active:scale-95"
+              >
+                <svg className="w-[22px] h-[22px]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+              </button>
+
+              {/* Notifications Dropdown */}
+              <div
+                className="absolute right-0 top-[calc(100%+10px)] w-72 rounded-2xl overflow-hidden z-50 transition-all duration-200"
+                style={{
+                  opacity: notifMenuOpen ? 1 : 0,
+                  transform: notifMenuOpen ? 'translateY(0) scale(1)' : 'translateY(-8px) scale(0.97)',
+                  pointerEvents: notifMenuOpen ? 'auto' : 'none',
+                  background: 'rgba(255,255,255,0.92)',
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                  border: '1px solid rgba(226,232,240,0.8)',
+                  boxShadow: '0 8px 40px rgba(0,0,0,0.14)',
+                }}
+              >
+                <div className="px-4 pt-4 pb-3 border-b border-slate-100 flex items-center justify-between">
+                  <p className="text-isimova-blue font-black text-[14px]">Notificaciones</p>
+                  <span className="bg-slate-100 text-slate-500 font-black text-[11px] px-2 py-0.5 rounded-full">0</span>
+                </div>
+                <div className="flex flex-col items-center justify-center py-8 px-4 gap-3">
+                  <BellOff className="w-8 h-8 text-slate-300" strokeWidth={1.5} />
+                  <p className="text-slate-400 text-sm font-bold text-center">No hay notificaciones nuevas</p>
+                </div>
+              </div>
+            </div>
+
+            {/* ── User Avatar + Dropdown (All screen sizes) ── */}
+            <div className="relative" ref={menuRef}>
+              <button
+                onClick={() => { setUserMenuOpen(prev => !prev); setNotifMenuOpen(false) }}
                 className="w-10 h-10 rounded-2xl bg-primary/10 text-primary flex items-center justify-center font-black text-lg ring-2 ring-primary/20 transition-all active:scale-95 shadow-sm hover:bg-primary/20"
               >
                 {userInitial}

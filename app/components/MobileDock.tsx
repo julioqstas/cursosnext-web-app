@@ -23,11 +23,11 @@ export default function MobileDock() {
       <div
         className="w-full flex items-center justify-around px-2 pt-2 pb-3 mx-3 mb-3 rounded-3xl"
         style={{
-          background: 'rgba(255,255,255,0.75)',
-          backdropFilter: 'blur(24px)',
-          WebkitBackdropFilter: 'blur(24px)',
-          border: '1px solid rgba(255,255,255,0.6)',
-          boxShadow: '0 -4px 30px rgba(0,0,0,0.06), 0 4px 20px rgba(0,0,0,0.04)',
+          background: 'linear-gradient(135deg, rgba(255,255,255,0.62), rgba(248,250,252,0.52))',
+          backdropFilter: 'blur(30px)',
+          WebkitBackdropFilter: 'blur(30px)',
+          border: '1px solid rgba(200,210,235,0.55)',
+          boxShadow: '0 -8px 32px rgba(45,66,133,0.08), 0 4px 24px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)',
         }}
       >
         {DOC_TABS.map(({ href, label, Icon }) => {
@@ -36,16 +36,16 @@ export default function MobileDock() {
             <Link
               key={href}
               href={href}
-              className="flex flex-col items-center gap-1 px-4 py-1.5 rounded-2xl transition-all active:scale-95 min-w-[60px]"
+              className={`flex flex-col items-center gap-1 px-4 py-1.5 rounded-2xl transition-all active:scale-95 min-w-[60px] ${
+                isActive ? 'bg-primary/10' : ''
+              }`}
             >
-              <div className="relative">
-                <Icon
-                  className={`w-6 h-6 transition-colors ${
-                    isActive ? 'text-primary' : 'text-slate-400'
-                  }`}
-                  strokeWidth={isActive ? 2.5 : 2}
-                />
-              </div>
+              <Icon
+                className={`w-6 h-6 transition-colors ${
+                  isActive ? 'text-primary' : 'text-slate-400'
+                }`}
+                strokeWidth={isActive ? 2.5 : 2}
+              />
               <span
                 className={`text-[10px] font-black tracking-tight transition-colors leading-none ${
                   isActive ? 'text-primary' : 'text-slate-400'
@@ -53,10 +53,6 @@ export default function MobileDock() {
               >
                 {label}
               </span>
-              {/* Active indicator dot */}
-              {isActive && (
-                <span className="absolute -bottom-1 w-1 h-1 rounded-full bg-primary opacity-0" />
-              )}
             </Link>
           )
         })}

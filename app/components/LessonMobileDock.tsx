@@ -72,11 +72,11 @@ export default function LessonMobileDock({
         <div
           className="w-full flex items-center justify-between px-3 pt-2 pb-3 mx-3 mb-3 rounded-3xl gap-2"
           style={{
-            background: 'rgba(255,255,255,0.78)',
-            backdropFilter: 'blur(24px)',
-            WebkitBackdropFilter: 'blur(24px)',
-            border: '1px solid rgba(255,255,255,0.6)',
-            boxShadow: '0 -4px 30px rgba(0,0,0,0.06), 0 4px 20px rgba(0,0,0,0.04)',
+            background: 'linear-gradient(135deg, rgba(255,255,255,0.62), rgba(248,250,252,0.52))',
+            backdropFilter: 'blur(30px)',
+            WebkitBackdropFilter: 'blur(30px)',
+            border: '1px solid rgba(200,210,235,0.55)',
+            boxShadow: '0 -8px 32px rgba(45,66,133,0.08), 0 4px 24px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.8)',
           }}
         >
           {/* Home */}

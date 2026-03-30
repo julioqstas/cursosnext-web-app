@@ -64,7 +64,7 @@ function MobileOnboardingSlideshow() {
                 <p className="text-primary text-[10px] font-bold tracking-[0.2em] uppercase mb-2 line-clamp-1">
                   {slide.tagline}
                 </p>
-                <h2 className="text-slate-900 text-[22px] font-black tracking-tight leading-tight mb-3">
+                <h2 className="text-isimova-blue text-[22px] font-black tracking-tight leading-tight mb-3">
                   {slide.title}
                 </h2>
                 <p className="text-slate-500 text-[13px] leading-relaxed max-w-[320px]">
@@ -113,7 +113,7 @@ function BrandSlideshow({ dark = false }: { dark?: boolean }) {
   }, [])
 
   const slide = SLIDES[active]
-  const titleColor = dark ? 'text-white' : 'text-slate-900'
+  const titleColor = dark ? 'text-white' : 'text-isimova-blue'
   const taglineColor = 'text-primary'
   const descColor = dark ? 'text-white/70' : 'text-slate-600'
   const borderAccent = 'border-primary/40'
@@ -191,7 +191,7 @@ function LoginForm({
           maxLength={8}
           minLength={8}
           placeholder="12345678"
-          className="w-full rounded-xl bg-white border border-slate-200 py-3.5 px-4 text-slate-900 placeholder:text-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-sm font-medium shadow-sm"
+          className="w-full rounded-xl bg-white border border-slate-200 py-3.5 px-4 text-isimova-blue font-bold placeholder:text-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-sm shadow-sm"
         />
       </div>
 
@@ -208,7 +208,7 @@ function LoginForm({
           required
           type="password"
           placeholder="••••••••"
-          className="w-full rounded-xl bg-white border border-slate-200 py-3.5 px-4 text-slate-900 placeholder:text-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-sm font-medium shadow-sm"
+          className="w-full rounded-xl bg-white border border-slate-200 py-3.5 px-4 text-isimova-blue font-bold placeholder:text-slate-300 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-sm shadow-sm"
         />
       </div>
 
@@ -330,7 +330,7 @@ export default function LoginPage() {
             <div
               className="w-full rounded-2xl p-6 pointer-events-auto"
               style={{
-                background: 'rgba(15, 23, 42, 0.45)', // slate-900 modified
+                background: 'rgba(45, 66, 133, 0.45)', // isimova-blue with opacity
                 backdropFilter: 'blur(24px)',
                 WebkitBackdropFilter: 'blur(24px)',
                 border: '1px solid rgba(255,255,255,0.1)',
@@ -366,7 +366,7 @@ export default function LoginPage() {
             </a>
 
             <div className="mb-6">
-              <h1 className="text-2xl font-black tracking-tight text-slate-900 leading-tight mb-1">
+              <h1 className="text-2xl font-black tracking-tight text-isimova-blue leading-tight mb-1">
                 Ingresa a tu cuenta
               </h1>
               <p className="text-slate-500 text-sm">
@@ -392,7 +392,7 @@ export default function LoginPage() {
         
         {/* ── Top Bar: Back Arrow & Centered Logo ── */}
         <div className="relative z-10 flex items-center justify-between px-6 pt-10 pb-4 shrink-0">
-          <a href="https://isimova.com" className="p-2 -ml-2 text-slate-400 hover:text-slate-900 transition-colors">
+          <a href="https://isimova.com" className="p-2 -ml-2 text-slate-400 hover:text-isimova-blue transition-colors">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
@@ -463,7 +463,7 @@ export default function LoginPage() {
           <div className="mb-6">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={LOGO_COLOR} alt="ISIMOVA" className="h-8 w-auto object-contain mb-5" />
-            <h2 className="text-2xl font-black tracking-tight text-slate-900 mb-1">
+            <h2 className="text-2xl font-black tracking-tight text-isimova-blue mb-1">
               Ingresa a tu cuenta
             </h2>
             <p className="text-slate-500 text-sm">Continúa tu camino hacia la certificación.</p>

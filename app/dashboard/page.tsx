@@ -107,7 +107,7 @@ export default async function StudentDashboard() {
       </div>
 
       {/* ── Stats Row (Mobile Carousel / Desktop Grid) ── */}
-      <div className="flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide -mx-6 px-6 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-12 w-[calc(100%+3rem)] lg:w-full">
+      <div className="flex gap-4 overflow-x-auto pb-4 mb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] -mx-6 px-6 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:pb-12 w-[calc(100%+3rem)] lg:w-full">
         <StatCard title="Diplomados en Curso" value={enrollments?.length ?? 0} icon={<BookOpen strokeWidth={2.5} className="w-[22px] h-[22px]" />} color="bg-primary/10 text-primary ring-primary/20" />
         <StatCard title="Horas Invertidas" value="0h" icon={<Clock strokeWidth={2.5} className="w-[22px] h-[22px]" />} color="bg-primary/10 text-primary ring-primary/20" />
         <StatCard title="Certificados Logrados" value="0" icon={<Award strokeWidth={2.5} className="w-[22px] h-[22px]" />} color="bg-primary/10 text-primary ring-primary/20" />

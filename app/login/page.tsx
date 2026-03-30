@@ -263,7 +263,7 @@ function InteractiveSpotlight() {
 
   return (
     <div 
-      className="absolute inset-0 bg-[#2D4285] overflow-hidden"
+      className="absolute inset-0 bg-isimova-blue overflow-hidden"
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -294,7 +294,7 @@ function InteractiveSpotlight() {
       />
       
       {/* Subtle ambient glow to avoid pitch black when not hovered */}
-      <div className="absolute inset-0 bg-linear-to-tr from-[#2D4285] via-transparent to-primary/5 pointer-events-none" />
+      <div className="absolute inset-0 bg-linear-to-tr from-isimova-blue via-transparent to-primary/5 pointer-events-none" />
     </div>
   )
 }

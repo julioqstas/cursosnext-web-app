@@ -120,7 +120,7 @@ export default function DashboardShell({ children, userInitial, userName, userRo
             <img 
               src="https://isimova.com/assets/img/Isimova-Color-Horizontal.png" 
               alt="ISIMOVA Academy Logo" 
-              className="h-7 w-auto block brightness-90 contrast-125 drop-shadow-sm"
+              className="h-9 w-auto block brightness-90 contrast-125 drop-shadow-sm"
             />
           </div>
 

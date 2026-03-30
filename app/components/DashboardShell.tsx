@@ -57,12 +57,12 @@ export default function DashboardShell({ children, userInitial, userName, userRo
             <img 
               src="https://isimova.com/assets/img/Isimova-Color-Horizontal.png" 
               alt="ISIMOVA Academy Logo" 
-              className="h-[30px] w-auto brightness-90 contrast-125"
+              className="h-10 w-auto brightness-90 contrast-125"
             />
           </Link>
           
           {/* Mobile close button inside the sidebar just in case */}
-          <button onClick={() => setIsMobileOpen(false)} className="lg:hidden ml-auto text-slate-400 hover:text-slate-900">
+          <button onClick={() => setIsMobileOpen(false)} className="lg:hidden ml-auto text-slate-400 hover:text-isimova-blue">
              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
           </button>
         </div>
@@ -72,7 +72,7 @@ export default function DashboardShell({ children, userInitial, userName, userRo
           {navLinks.map((link) => {
             const isActive = pathname === link.href
             return (
-              <Link key={link.href} href={link.href} className={`flex items-center gap-4 px-5 py-3.5 rounded-2xl transition-all font-black tracking-tight text-[15px] ${isActive ? 'bg-primary/10 text-primary shadow-[inset_0_0_20px_rgba(249,115,22,0.02)]' : 'text-slate-500 hover:bg-slate-50 hover:text-slate-900'}`}>
+              <Link key={link.href} href={link.href} className={`flex items-center gap-4 px-5 py-3.5 rounded-2xl transition-all font-black tracking-tight text-[15px] ${isActive ? 'bg-primary/20 text-isimova-blue shadow-[inset_0_0_20px_rgba(242,140,56,0.05)]' : 'text-slate-500 hover:bg-slate-50 hover:text-isimova-blue'}`}>
                 <svg className="w-[22px] h-[22px] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" strokeWidth={isActive ? 2.5 : 2}>
                   {getIcon(link.icon)}
                 </svg>
@@ -84,13 +84,13 @@ export default function DashboardShell({ children, userInitial, userName, userRo
         
         {/* User Mini Profile & Settings */}
         <div className="px-5 pb-8 mt-auto flex flex-col gap-2 shrink-0">
-          <Link href="/dashboard/perfil" className="flex items-center gap-4 w-full p-4 rounded-[1.25rem] hover:bg-slate-50 transition-colors text-left group border border-transparent hover:border-slate-100">
-            <div className="w-11 h-11 rounded-2xl bg-slate-100 shrink-0 overflow-hidden flex items-center justify-center text-slate-500 font-black text-xl ring-2 ring-transparent group-hover:ring-primary/20 transition-all shadow-sm">
+          <Link href="/dashboard/perfil" className={`flex items-center gap-4 w-full p-4 rounded-[1.25rem] transition-all text-left group border ${pathname === '/dashboard/perfil' ? 'bg-primary/20 border-transparent shadow-[inset_0_0_20px_rgba(242,140,56,0.05)]' : 'hover:bg-slate-50 border-transparent hover:border-slate-100'}`}>
+            <div className={`w-11 h-11 rounded-2xl shrink-0 overflow-hidden flex items-center justify-center font-black text-xl ring-2 transition-all shadow-sm ${pathname === '/dashboard/perfil' ? 'bg-primary text-white ring-primary/30' : 'bg-slate-100 text-slate-500 ring-transparent group-hover:ring-primary/20'}`}>
                {userInitial}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[15px] font-black tracking-tight text-slate-900 truncate pr-2">{userName}</p>
-              <p className="text-[12px] text-slate-500 font-bold uppercase tracking-wider truncate">{userRole}</p>
+              <p className="text-[15px] font-black tracking-tight text-isimova-blue truncate pr-2">{userName}</p>
+              <p className={`text-[12px] font-bold uppercase tracking-wider truncate ${pathname === '/dashboard/perfil' ? 'text-isimova-blue/80' : 'text-slate-500'}`}>{userRole}</p>
             </div>
           </Link>
 
@@ -110,7 +110,7 @@ export default function DashboardShell({ children, userInitial, userName, userRo
         <header className="h-[76px] shrink-0 flex items-center justify-between px-5 sm:px-8 bg-white/70 backdrop-blur-xl border-b border-slate-200/60 sticky top-0 z-30 w-full">
           
           {/* Mobile menu (Hamburger) */}
-          <button onClick={() => setIsMobileOpen(true)} className="lg:hidden p-2 -ml-2 text-slate-600 hover:text-slate-900 bg-slate-100/50 hover:bg-slate-100 rounded-xl transition-colors active:scale-95 shrink-0 relative z-20">
+          <button onClick={() => setIsMobileOpen(true)} className="lg:hidden p-2 -ml-2 text-slate-600 hover:text-isimova-blue bg-slate-100/50 hover:bg-slate-100 rounded-xl transition-colors active:scale-95 shrink-0 relative z-20">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 6h16M4 12h16M4 18h16"/></svg>
           </button>
           
@@ -134,7 +134,7 @@ export default function DashboardShell({ children, userInitial, userName, userRo
             {/* Desktop only user name in header (optional, keep it clean) */}
             
             {/* Notifications */}
-            <button className="relative p-2.5 text-slate-500 hover:text-slate-900 hover:bg-slate-100 bg-slate-50 rounded-xl transition-colors ring-1 ring-slate-200/60 shadow-sm active:scale-95">
+            <button className="relative p-2.5 text-slate-500 hover:text-isimova-blue hover:bg-slate-100 bg-slate-50 rounded-xl transition-colors ring-1 ring-slate-200/60 shadow-sm active:scale-95">
               <svg className="w-[22px] h-[22px]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
               <span className="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-red-500 ring-[3px] ring-white shadow-sm"></span>
             </button>

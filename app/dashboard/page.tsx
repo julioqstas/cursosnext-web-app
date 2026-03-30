@@ -100,7 +100,7 @@ export default async function StudentDashboard() {
       {/* ── Welcome Header ── */}
       <div className="flex flex-col md:flex-row gap-6 justify-between md:items-end mb-10 w-full">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 tracking-tight mb-2">Hola de nuevo, {firstName} 👋</h1>
+          <h1 className="text-3xl font-black text-isimova-blue tracking-tight mb-2">Hola de nuevo, {firstName} 👋</h1>
           <p className="text-slate-500 text-[15px]">Un buen día para absorber nuevo conocimiento. ¡Sigue liderando!</p>
         </div>
       </div>
@@ -120,7 +120,7 @@ export default async function StudentDashboard() {
 
           {/* Quick Courses Row */}
           <section className="w-full">
-             <h2 className="text-xl font-black text-slate-900 mb-6">Todos mis cursos</h2>
+             <h2 className="text-xl font-black text-isimova-blue mb-6">Todos mis cursos</h2>
              
              {(!enrollments || enrollments.length === 0) ? (
                <div className="text-center py-10 text-slate-400">
@@ -157,7 +157,7 @@ function StatCard({ title, value, icon, color }: any) {
        </div>
        <div>
          <p className="text-[13px] font-bold text-slate-500 mb-1">{title}</p>
-         <p className="text-3xl font-black text-slate-900 tracking-tight">{value}</p>
+         <p className="text-3xl font-black text-isimova-blue tracking-tight">{value}</p>
        </div>
     </div>
   )
@@ -176,14 +176,14 @@ function CourseCard({ title, progress, image }: any) {
         )}
       </div>
       <div className="px-3 pb-3 flex flex-col flex-1">
-        <h4 className="text-[15px] font-black text-slate-900 mb-4 line-clamp-2 leading-tight">{title}</h4>
+        <h4 className="text-[15px] font-black text-isimova-blue mb-4 line-clamp-2 leading-tight">{title}</h4>
         <div className="mt-auto">
           <div className="flex items-center justify-between text-[11px] font-black uppercase text-slate-400 mb-2 tracking-widest">
             <span>Progreso</span>
-            <span className="text-slate-900">{progress}%</span>
+            <span className="text-isimova-blue">{progress}%</span>
           </div>
           <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden relative">
-            <div className="bg-slate-900 h-full rounded-full transition-all duration-1000" style={{ width: `${progress}%` }}></div>
+            <div className="bg-isimova-blue h-full rounded-full transition-all duration-1000" style={{ width: `${progress}%` }}></div>
           </div>
         </div>
       </div>

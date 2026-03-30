@@ -45,7 +45,7 @@ export default function LessonAccordion({ courseId, modules }: LessonAccordionPr
               }`}
             >
               <div className="flex-1 min-w-0 pr-4">
-                <p className="text-slate-900 text-[15px] font-black tracking-tight truncate">{mod.title}</p>
+                <p className="text-isimova-blue text-[15px] font-black tracking-tight truncate">{mod.title}</p>
                 <p className="text-slate-500 text-[13px] mt-0.5 font-bold tracking-wide uppercase">
                   {completedCount}/{mod.lessons.length} completadas
                 </p>
@@ -102,7 +102,7 @@ export default function LessonAccordion({ courseId, modules }: LessonAccordionPr
                             {lesson.isCurrent ? <div className="w-2.5 h-2.5 rounded-full bg-primary" /> : <span className="text-[10px]">&nbsp;</span>}
                           </div>
                         )}
-                        <span className={`text-[14px] truncate transition-colors ${lesson.isCurrent ? 'text-slate-900 font-black tracking-tight' : 'text-slate-600 font-bold group-hover:text-slate-900'}`}>
+                        <span className={`text-[14px] truncate transition-colors ${lesson.isCurrent ? 'text-isimova-blue font-black tracking-tight' : 'text-slate-600 font-bold group-hover:text-isimova-blue'}`}>
                           {lesson.title}
                         </span>
                       </Link>

@@ -1,7 +1,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { createAdminClient } from '@/lib/supabase/server'
+import { createAdminClient, requireAdmin } from '@/lib/supabase/server'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyTable = any
@@ -20,6 +20,8 @@ export async function upsertCourseAction(
   const is_published = formData.get('is_published') === 'true'
 
   if (!title) return { error: 'Título requerido.' }
+
+  await requireAdmin()
 
   const admin = createAdminClient()
   const { error } = await (admin.from('courses') as AnyTable).upsert(
@@ -42,6 +44,7 @@ export async function upsertCourseAction(
 }
 
 export async function softDeleteCourseAction(courseId: string) {
+  await requireAdmin()
   const admin = createAdminClient()
   await (admin.from('courses') as AnyTable).update({ is_active: false }).eq('id', courseId)
   revalidatePath('/admin/cursos')
@@ -58,6 +61,8 @@ export async function upsertModuleAction(
 
   if (!title) return { error: 'Título requerido.' }
 
+  await requireAdmin()
+
   const admin = createAdminClient()
   const { error } = await (admin.from('modules') as AnyTable).upsert(
     { ...(id ? { id } : {}), course_id, title, order_index },
@@ -70,6 +75,7 @@ export async function upsertModuleAction(
 }
 
 export async function softDeleteModuleAction(moduleId: string) {
+  await requireAdmin()
   const admin = createAdminClient()
   await (admin.from('modules') as AnyTable).update({ is_active: false }).eq('id', moduleId)
   revalidatePath('/admin/cursos')
@@ -88,6 +94,8 @@ export async function upsertLessonAction(
 
   if (!title) return { error: 'Título requerido.' }
 
+  await requireAdmin()
+
   const admin = createAdminClient()
   const { error } = await (admin.from('lessons') as AnyTable).upsert(
     { ...(id ? { id } : {}), module_id, title, youtube_id, content_md, order_index },
@@ -100,6 +108,7 @@ export async function upsertLessonAction(
 }
 
 export async function softDeleteLessonAction(lessonId: string) {
+  await requireAdmin()
   const admin = createAdminClient()
   await (admin.from('lessons') as AnyTable).update({ is_active: false }).eq('id', lessonId)
   revalidatePath('/admin/cursos')

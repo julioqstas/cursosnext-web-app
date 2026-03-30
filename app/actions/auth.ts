@@ -2,7 +2,7 @@
 
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
-import { createClient, createAdminClient } from '@/lib/supabase/server'
+import { createClient, createAdminClient, requireAdmin } from '@/lib/supabase/server'
 
 /** Login with DNI — transforms DNI to email silently */
 export async function loginAction(
@@ -59,6 +59,8 @@ export async function createStudentAction(
   if (!full_name) return { error: 'Nombre completo requerido.' }
   if (!password || password.length < 6) return { error: 'Contraseña mínimo 6 caracteres.' }
 
+  await requireAdmin()
+
   const admin = createAdminClient()
   const { data, error } = await admin.auth.admin.createUser({
     email: `${dni}@alumnos.isimova.com`,
@@ -84,6 +86,7 @@ export async function createStudentAction(
 
 /** Admin: soft-delete a student */
 export async function deactivateStudentAction(userId: string) {
+  await requireAdmin()
   const admin = createAdminClient()
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await (admin.from('profiles') as any).update({ is_active: false }).eq('id', userId)
@@ -92,6 +95,7 @@ export async function deactivateStudentAction(userId: string) {
 
 /** Admin: reactivate a student */
 export async function activateStudentAction(userId: string) {
+  await requireAdmin()
   const admin = createAdminClient()
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await (admin.from('profiles') as any).update({ is_active: true }).eq('id', userId)

@@ -1,7 +1,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { createAdminClient } from '@/lib/supabase/server'
+import { createAdminClient, requireAdmin } from '@/lib/supabase/server'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyTable = any
@@ -15,6 +15,8 @@ export async function enrollStudentAction(
   const course_id = formData.get('course_id') as string
   const drip_interval_days = parseInt(formData.get('drip_interval_days') as string) || 0
   const expires_at = formData.get('expires_at') as string | null
+
+  await requireAdmin()
 
   const admin = createAdminClient()
   const { error } = await (admin.from('enrollments') as AnyTable).insert({
@@ -32,6 +34,7 @@ export async function enrollStudentAction(
 
 /** Admin: pause a student's enrollment */
 export async function pauseEnrollmentAction(enrollmentId: string, userId: string) {
+  await requireAdmin()
   const admin = createAdminClient()
   await (admin.from('enrollments') as AnyTable)
     .update({ status: 'paused' })
@@ -41,6 +44,7 @@ export async function pauseEnrollmentAction(enrollmentId: string, userId: string
 
 /** Admin: activate (unpause) an enrollment */
 export async function activateEnrollmentAction(enrollmentId: string, userId: string) {
+  await requireAdmin()
   const admin = createAdminClient()
   await (admin.from('enrollments') as AnyTable)
     .update({ status: 'active' })
@@ -50,6 +54,7 @@ export async function activateEnrollmentAction(enrollmentId: string, userId: str
 
 /** Admin: suspend an enrollment */
 export async function suspendEnrollmentAction(enrollmentId: string, userId: string) {
+  await requireAdmin()
   const admin = createAdminClient()
   await (admin.from('enrollments') as AnyTable)
     .update({ status: 'suspended' })
@@ -66,6 +71,8 @@ export async function upsertLessonOverrideAction(
   const lesson_id = formData.get('lesson_id') as string
   const manual_unlock_date = formData.get('manual_unlock_date') as string
   const userId = formData.get('user_id') as string
+
+  await requireAdmin()
 
   const admin = createAdminClient()
 
@@ -96,6 +103,7 @@ export async function deleteLessonOverrideAction(
   overrideId: string,
   userId: string
 ) {
+  await requireAdmin()
   const admin = createAdminClient()
   await admin.from('lesson_overrides').delete().eq('id', overrideId)
   revalidatePath(`/admin/alumnos/${userId}`)

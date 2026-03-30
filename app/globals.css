@@ -10,10 +10,14 @@
   --color-surface-container-high: #1e2640;
   --color-surface-container-highest: #2a3350;
   
-  /* Primary Action */
-  --color-primary: #f97316;
-  --color-primary-variant: #ea580c;
-  --color-primary-fixed-variant: #cf5b00;
+  /* Primary Action (Isimova Orange) */
+  --color-primary: #F28C38;
+  --color-primary-variant: #D97726; /* Hover statish */
+  --color-primary-fixed-variant: #BF6517;
+  
+  /* Isimova Corporate Identity */
+  --color-isimova-blue: #2D4285;
+  --color-isimova-blue-dark: #1e2f63;
   
   /* Typography on primary */
   --color-on-primary: #ffffff;
@@ -55,5 +59,5 @@
   border-radius: 9999px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(249, 115, 22, 0.5); /* primary/50 */
+  background-color: rgba(242, 140, 56, 0.5); /* Primary #F28C38 / 50% */
 }

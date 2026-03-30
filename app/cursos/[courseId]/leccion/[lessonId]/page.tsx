@@ -119,7 +119,7 @@ export default async function LessonPage({ params }: PageProps) {
         </Link>
         <div className="h-8 w-px bg-slate-200 hidden sm:block"></div>
         <div className="flex-1 min-w-0 flex items-center gap-3">
-          <span className="text-[15px] font-black text-slate-900 truncate tracking-tight">{course.title}</span>
+          <span className="text-[15px] font-black text-isimova-blue truncate tracking-tight">{course.title}</span>
         </div>
         <div className="hidden sm:flex items-center gap-4 bg-slate-100 px-4 py-2 rounded-2xl shrink-0">
           <span className="text-[11px] font-black tracking-widest uppercase text-slate-500">Progreso</span>
@@ -154,7 +154,7 @@ export default async function LessonPage({ params }: PageProps) {
               <span className="text-slate-500 bg-white px-3 py-1.5 rounded-full shadow-sm ring-1 ring-slate-100">Lección {currentLesson.order_index} de {allLessons.length}</span>
             </div>
             
-            <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-10 tracking-tight leading-[1.15]">{currentLesson.title}</h1>
+            <h1 className="text-4xl md:text-5xl font-black text-isimova-blue mb-10 tracking-tight leading-[1.15]">{currentLesson.title}</h1>
 
             {/* Formatted HTML Text */}
             <div className="w-full text-slate-600 leading-relaxed text-lg prose prose-slate prose-headings:text-slate-900 prose-headings:font-black prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:font-black prose-p:mb-6 max-w-none **:break-normal!">
@@ -186,7 +186,7 @@ export default async function LessonPage({ params }: PageProps) {
                 )}
                 <div className="flex-1 min-w-0 text-center sm:text-left pt-2">
                   <span className="text-[10px] font-black tracking-widest uppercase text-primary mb-2 block">Instructor del Curso</span>
-                  <p className="text-slate-900 font-black text-2xl tracking-tight mb-2">{course.instructor_name}</p>
+                  <p className="text-isimova-blue font-black text-2xl tracking-tight mb-2">{course.instructor_name}</p>
                   <p className="text-slate-500 text-[15px] font-medium leading-relaxed">{course.instructor_bio}</p>
                 </div>
               </div>
@@ -200,7 +200,7 @@ export default async function LessonPage({ params }: PageProps) {
           {/* Lesson Completion Action Card */}
           <div className="bg-white rounded-[2rem] p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] ring-1 ring-slate-100 flex items-center gap-6">
              <div className="flex-1">
-                <h3 className="text-slate-900 font-black text-[15px] mb-1">Estado de Lección</h3>
+                <h3 className="text-isimova-blue font-black text-[15px] mb-1">Estado de Lección</h3>
                 <p className="text-slate-500 text-xs font-medium">Confirma tu avance grupal</p>
              </div>
              
@@ -208,7 +208,7 @@ export default async function LessonPage({ params }: PageProps) {
                 {!isCompleted ? (
                   <form action={markComplete} className="w-full">
                     <button type="submit" 
-                      className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm h-12 rounded-xl shadow-lg shadow-slate-900/20 transition-all hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2">
+                      className="w-full bg-isimova-blue hover:bg-isimova-blue-dark text-white font-bold text-sm h-12 rounded-xl shadow-lg shadow-isimova-blue/20 transition-all hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-2">
                       <svg className="w-5 h-5 text-white/50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                       Marcar Lista
                     </button>
@@ -225,7 +225,7 @@ export default async function LessonPage({ params }: PageProps) {
           {/* Syllabus Accordion Wrapper */}
           <div className="flex flex-col gap-4">
              <div className="flex items-center justify-between px-2">
-                <h3 className="text-slate-900 text-sm font-black tracking-widest uppercase">Temario</h3>
+                <h3 className="text-isimova-blue text-sm font-black tracking-widest uppercase">Temario</h3>
                 <span className="text-slate-400 text-xs font-bold">{allLessons.length} lecciones</span>
              </div>
              {/* Note: LessonAccordion itself was made visually appealing with white cards */}

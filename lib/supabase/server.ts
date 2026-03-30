@@ -36,3 +36,26 @@ export function createAdminClient() {
     { auth: { autoRefreshToken: false, persistSession: false } }
   )
 }
+
+/** 
+ * SECURITY BARRICADE: Verifies if the current session belongs to an Admin.
+ * Must be called before instantiate createAdminClient() in any Server Action. 
+ */
+export async function requireAdmin() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  
+  if (!user) {
+    throw new Error('Unauthorized: Invalid session')
+  }
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('role')
+    .eq('id', user.id)
+    .single()
+
+  if (profile?.role !== 'admin') {
+    throw new Error('Unauthorized: Insufficient permissions')
+  }
+}

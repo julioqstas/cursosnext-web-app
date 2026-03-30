@@ -21,10 +21,10 @@ export default function ComingSoonModule({ title, description, iconPath }: { tit
           En Desarrollo
         </span>
 
-        <h2 className="text-2xl font-black text-slate-900 mb-3 tracking-tight">{title}</h2>
+        <h2 className="text-2xl font-black text-isimova-blue mb-3 tracking-tight">{title}</h2>
         <p className="text-slate-500 font-medium leading-relaxed mb-8">{description}</p>
 
-        <Link href="/dashboard" className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm px-6 py-3.5 rounded-2xl shadow-lg shadow-slate-900/20 transition-all hover:-translate-y-0.5 active:scale-95">
+        <Link href="/dashboard" className="inline-flex items-center gap-2 bg-isimova-blue hover:bg-isimova-blue-dark text-white font-bold text-sm px-6 py-3.5 rounded-2xl shadow-lg shadow-isimova-blue/20 transition-all hover:-translate-y-0.5 active:scale-95">
           <svg className="w-4 h-4 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
